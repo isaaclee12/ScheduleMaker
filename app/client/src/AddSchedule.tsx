@@ -15,16 +15,16 @@ function AddSchedule() {
 
     const [sendingDataBool, setSendingDataBool] = useState(false)
 
-    useEffect(() => {
-        console.log("\nFORM\nday_of_week:", day_of_week);
-        console.log("date:", date);
-        console.log("name:", name);
-        console.log("position:", position);
-        console.log("location:", location);
-        console.log("start_time:", start_time);
-        console.log("end_time:", end_time);
-        console.log("total_hours:", total_hours);
-    }, [day_of_week, date, name, position, location, start_time, end_time, total_hours])
+    // useEffect(() => {
+    //     console.log("\nFORM\nday_of_week:", day_of_week);
+    //     console.log("date:", date);
+    //     console.log("name:", name);
+    //     console.log("position:", position);
+    //     console.log("location:", location);
+    //     console.log("start_time:", start_time);
+    //     console.log("end_time:", end_time);
+    //     console.log("total_hours:", total_hours);
+    // }, [day_of_week, date, name, position, location, start_time, end_time, total_hours])
     
 
     useEffect(() => {
@@ -33,6 +33,17 @@ function AddSchedule() {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string) => {
         console.log(e.target.value);
+    }
+
+    const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
+        console.log("\nFORM:\n\nday_of_week:", day_of_week);
+        console.log("date:", date);
+        console.log("name:", name);
+        console.log("position:", position);
+        console.log("location:", location);
+        console.log("start_time:", start_time);
+        console.log("end_time:", end_time);
+        console.log("total_hours:", total_hours);
     }
 
     return(
@@ -88,7 +99,8 @@ function AddSchedule() {
                 </label>
 
                 {/* <input type="submit" value="Submit" className="border"/> */}
-                <SubmitButton/>
+                <button type="submit" onClick={handleSubmit} className="border">SUBMIT</button>
+                {/* <SubmitButton/> */}
             </form>
         </div>
     )
