@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-
 import SubmitButton from './SubmitButton';
 
 function AddSchedule() {
@@ -19,6 +18,10 @@ function AddSchedule() {
         
     }, [sendingDataBool])
 
+    const handleInputChange = () => {
+        
+    }
+
     return(
         <div className="mt-20 ml-10">
             <form>
@@ -26,49 +29,49 @@ function AddSchedule() {
                 <br/>
                 <label>
                     day_of_week:
-                    <input type="text" className="border" onChange={setDayOfWeek}/>
+                    <input type="text" className="border" onChange={handleInputChange}/>
                 </label>
                 
                 <br/>
                 <label>
                     date:
-                    <input type="text" className="border" onChange={setDate}/>
+                    <input type="text" className="border" onChange={handleInputChange}/>
                 </label>
                 
                 <br/>
                 <label>
                     name:
-                    <input type="text" className="border" onChange={setName}/>
+                    <input type="text" className="border" onChange={handleInputChange}/>
                 </label>
                 
                 <br/>
                 <label>
                     position:
-                    <input type="text" className="border" onChange={setPosition}/>
+                    <input type="text" className="border" onChange={handleInputChange}/>
                 </label>
                 
                 <br/>
                 <label>
                     location:
-                    <input type="text" className="border" onChange={setLocation}/>
+                    <input type="text" className="border" onChange={handleInputChange}/>
                 </label>
                 
                 <br/>
                 <label>
                     start_time:
-                    <input type="text" className="border" onChange={setStartTime}/>
+                    <input type="text" className="border" onChange={handleInputChange}/>
                 </label>
                 
                 <br/>
                 <label>
                     end_time:
-                    <input type="text" className="border" onChange={setEndTime}/>
+                    <input type="text" className="border" onChange={handleInputChange}/>
                 </label>
                 
                 <br/>
                 <label>
                     total_hours:
-                    <input type="text" className="border" onChange={setTotal_hours}/>
+                    <input type="text" className="border" onChange={handleInputChange}/>
                 </label>
 
                 {/* <input type="submit" value="Submit" className="border"/> */}
