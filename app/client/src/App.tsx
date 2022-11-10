@@ -9,18 +9,25 @@ function App() {
   }, [schedule]);
   
   useEffect(() => {
-    fetch("http://localhost:8000/schedule/", {
-      method: "GET",
-      mode: 'cors'
-    })
-    .then(response => response.json()
-      .then(data => {
-          setSchedule(data);
+
+    function fetchData(endpoint: string): void {
+      fetch(endpoint, {
+        method: "GET",
+        mode: 'cors'
       })
-    )
-    .catch((err) => {
-      console.error(err);
-    })
+      .then(response => response.json()
+        .then(data => {
+            setSchedule(data);
+        })
+      )
+      .catch((err) => {
+        console.error(err);
+      })
+    }
+
+    fetchData("http://localhost:8000/schedule/");
+    // Monday thru Sunday
+
   }, [])
   
   return (
@@ -39,15 +46,10 @@ function App() {
         </thead>
 
         <tbody>
-          {schedule.map(shifts=>
-          <tr>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-            <th>Sunday</th>
+          {schedule.map(days=>
+          <tr key={days['date']}>
+            <td>{days['date']}</td>
+            <td>{days['shifts']}</td>
           </tr>
           )}
         </tbody>
