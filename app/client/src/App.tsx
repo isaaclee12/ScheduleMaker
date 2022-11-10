@@ -14,8 +14,8 @@ function App() {
   const [sundayShifts, setSundayShifts] = useState([])
 
   useEffect(() => {
-    console.log("Schedule data fetched:", shifts);
-  }, [shifts]);
+    console.log("Monday:", console.log(mondayShifts));
+  }, [mondayShifts]);
   
   useEffect(() => {
 
@@ -50,15 +50,20 @@ function App() {
     setSaturdayShifts(shifts[5]);
     setSundayShifts(shifts[6]);
 
+    
+
     // object.keys returns ["Monday", "Tuesday", ... ]
     // forEach iterates over that list.
     // the "day" var represents an individual day JSON object
     Object.keys(shifts).forEach((day) => {
-            console.log(day);
+      console.log("DAY", day);
+      // then you can map the actual shifts in the day objects
+      
+      // .map(shift: Array<any>=>{
+      //   <p>{shift.position}</p>
+      // })
+    });
 
-            // then you can map the actual shifts in the day objects
-            shifts[day].map()
-          })
   }, [])
   
   return (
@@ -85,21 +90,17 @@ function App() {
             </tr>
         </thead>
 
-        { 
-          //shifts is my json object
-          // let arr = [];
-          Object.keys(shifts).forEach(function(key) {
-            console.log(shifts);
-          })
-
-        
-        }
-
         <tbody>
 
         </tbody>
       </table>
-    </div>
+
+      {
+        shifts.map(shift=>{
+          <p>{shift}</p>
+        })
+      }
+      </div>
   );
 }
 
