@@ -7,8 +7,8 @@ class Shifts(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    start_time = models.CharField(max_length=7)
+    end_time = models.CharField(max_length=7)
     total_hours = models.PositiveSmallIntegerField()
 
 # TODO: Add an employee table with a one-to-many relationship to the Shifts table

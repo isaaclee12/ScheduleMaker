@@ -1,0 +1,15 @@
+"id", "day_of_week", "date", "name", "position", "location", "start_time", "end_time", "total_hours"
+,Monday,2022-11-07,Isaac,Server,Main St,3:00PM,10:00PM,7
+,Monday,2022-11-07,Kevin,Server,Main St,3:00PM,10:00PM,7
+,Tuesday,2022-11-07,Isaac,Server,Main St,3:00PM,10:00PM,7
+,Tuesday,2022-11-07,Kevin,Server,Main St,3:00PM,10:00PM,7
+,Wednesday,2022-11-07,Isaac,Server,Main St,3:00PM,10:00PM,7
+,Wednesday,2022-11-07,Kevin,Server,Main St,3:00PM,10:00PM,7
+,Thursday,2022-11-07,Isaac,Server,Main St,3:00PM,10:00PM,7
+,Thursday,2022-11-07,Kevin,Server,Main St,3:00PM,10:00PM,7
+,Friday,2022-11-07,Isaac,Server,Main St,3:00PM,10:00PM,7
+,Friday,2022-11-07,Kevin,Server,Main St,3:00PM,10:00PM,7
+,Saturday,2022-11-07,Becky,Server,Main St,3:00PM,10:00PM,7
+,Saturday,2022-11-07,Carla,Server,Main St,3:00PM,10:00PM,7
+,Sunday,2022-11-07,Becky,Server,Main St,3:00PM,10:00PM,7
+,Sunday,2022-11-07,Carla,Server,Main St,3:00PM,10:00PM,7
