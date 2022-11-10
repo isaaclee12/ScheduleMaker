@@ -1,3 +1,4 @@
+import { ReadVResult } from 'fs';
 import React, {useState, useEffect} from 'react';
 import SubmitButton from './SubmitButton';
 
@@ -10,16 +11,28 @@ function AddSchedule() {
     const [location, setLocation] = useState("")
     const [start_time, setStartTime] = useState("")
     const [end_time, setEndTime] = useState("")
-    const [total_hours, setTotal_hours] = useState(0)
+    const [total_hours, setTotalHours] = useState(0)
 
     const [sendingDataBool, setSendingDataBool] = useState(false)
+
+    useEffect(() => {
+        console.log("\nFORM\nday_of_week:", day_of_week);
+        console.log("date:", date);
+        console.log("name:", name);
+        console.log("position:", position);
+        console.log("location:", location);
+        console.log("start_time:", start_time);
+        console.log("end_time:", end_time);
+        console.log("total_hours:", total_hours);
+    }, [day_of_week, date, name, position, location, start_time, end_time, total_hours])
+    
 
     useEffect(() => {
         
     }, [sendingDataBool])
 
-    const handleInputChange = () => {
-        
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string) => {
+        console.log(e.target.value);
     }
 
     return(
@@ -29,49 +42,49 @@ function AddSchedule() {
                 <br/>
                 <label>
                     day_of_week:
-                    <input type="text" className="border" onChange={handleInputChange}/>
+                    <input type="text" className="border" onChange={(e) => setDayOfWeek(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     date:
-                    <input type="text" className="border" onChange={handleInputChange}/>
+                    <input type="text" className="border" onChange={(e) => setDate(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     name:
-                    <input type="text" className="border" onChange={handleInputChange}/>
+                    <input type="text" className="border" onChange={(e) => setName(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     position:
-                    <input type="text" className="border" onChange={handleInputChange}/>
+                    <input type="text" className="border" onChange={(e) => setPosition(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     location:
-                    <input type="text" className="border" onChange={handleInputChange}/>
+                    <input type="text" className="border" onChange={(e) => setLocation(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     start_time:
-                    <input type="text" className="border" onChange={handleInputChange}/>
+                    <input type="text" className="border" onChange={(e) => setStartTime(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     end_time:
-                    <input type="text" className="border" onChange={handleInputChange}/>
+                    <input type="text" className="border" onChange={(e) => setEndTime(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     total_hours:
-                    <input type="text" className="border" onChange={handleInputChange}/>
+                    <input type="text" className="border" onChange={(e) => setTotalHours(parseInt(e.target.value))}/>
                 </label>
 
                 {/* <input type="submit" value="Submit" className="border"/> */}
