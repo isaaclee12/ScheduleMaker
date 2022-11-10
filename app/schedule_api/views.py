@@ -19,16 +19,18 @@ class ShiftsViewSet(viewsets.ModelViewSet):
         return ShiftsSerializer(query, many=True).data
 
     # Call that function
-    queryMonday = ["Monday", serialize(queryset.filter(day_of_week__exact="Monday"))]
-    queryTuesday = ["Tuesday", serialize(queryset.filter(day_of_week__exact="Tuesday"))]
-    queryWednesday = ["Wednesday", serialize(queryset.filter(day_of_week__exact="Wednesday"))]
-    queryThursday = ["Thursday", serialize(queryset.filter(day_of_week__exact="Thursday"))]
-    queryFriday = ["Friday", serialize(queryset.filter(day_of_week__exact="Friday"))]
-    querySaturday = ["Saturday", serialize(queryset.filter(day_of_week__exact="Saturday"))]
-    querySunday = ["Sunday", serialize(queryset.filter(day_of_week__exact="Sunday"))]
+    queryWeek = {
+        "Monday": serialize(queryset.filter(day_of_week__exact="Monday")), 
+        "Tuesday": serialize(queryset.filter(day_of_week__exact="Tuesday")), 
+        "Wednesday": serialize(queryset.filter(day_of_week__exact="Wednesday")), 
+        "Thursday": serialize(queryset.filter(day_of_week__exact="Thursday")), 
+        "Friday": serialize(queryset.filter(day_of_week__exact="Friday")), 
+        "Saturday": serialize(queryset.filter(day_of_week__exact="Saturday")), 
+        "Sunday": serialize(queryset.filter(day_of_week__exact="Sunday"))
+    }
 
     # Create a list of all those date-shifts pairs
-    queryWeek = [queryMonday, queryTuesday, queryWednesday, queryThursday, queryFriday, querySaturday, querySunday]
+    # queryWeek = [queryMonday, queryTuesday, queryWednesday, queryThursday, queryFriday, querySaturday, querySunday]
 
     # Debug print
     # for item in queryWeek:

@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from 'react';
+import internal from 'stream';
+
+// Establish vars for this component via interfaces
+interface Shift {
+  id: number,
+  day_of_week: string,
+  date: string,
+  name: string,
+  position: string,
+  location: string,
+  start_time: string,
+  end_time: string,
+  total_hours: number,
+}
+
+interface ShiftProps {
+  shifts: Shift[];
+}
 
 function App() {
 
   const [shifts, setShifts] = useState([])
   const [dates, setDates] = useState([])
 
-  const [mondayShifts, setMondayShifts] = useState([])
-  const [tuesdayShifts, setTuesdayShifts] = useState([])
-  const [wednesdayShifts, setWednesdayShifts] = useState([])
-  const [thursdayShifts, setThursdayShifts] = useState([])
-  const [fridayShifts, setFridayShifts] = useState([])
-  const [saturdayShifts, setSaturdayShifts] = useState([])
-  const [sundayShifts, setSundayShifts] = useState([])
-
-  useEffect(() => {
-    console.log("Monday:", console.log(mondayShifts));
-  }, [mondayShifts]);
+  // useEffect(() => {
+  //   console.log("shifts:", shifts);
+  // }, [shifts]);
   
   useEffect(() => {
 
@@ -42,14 +52,6 @@ function App() {
     fetchData("http://localhost:8000/schedule/shifts/");
     fetchData("http://localhost:8000/schedule/dates/");
 
-    setMondayShifts(shifts[0]);
-    setTuesdayShifts(shifts[1]);
-    setWednesdayShifts(shifts[2]);
-    setThursdayShifts(shifts[3]);
-    setFridayShifts(shifts[4]);
-    setSaturdayShifts(shifts[5]);
-    setSundayShifts(shifts[6]);
-
     
 
     // object.keys returns ["Monday", "Tuesday", ... ]
@@ -58,16 +60,17 @@ function App() {
     Object.keys(shifts).forEach((day) => {
       console.log("DAY", day);
       // then you can map the actual shifts in the day objects
-      
-      // .map(shift: Array<any>=>{
-      //   <p>{shift.position}</p>
-      // })
     });
 
   }, [])
   
   return (
     <div className="App">
+
+      {shifts?.map(day =>
+        <p>day</p>
+      )}
+
       <table>
         <thead>
             <tr>
@@ -91,16 +94,16 @@ function App() {
         </thead>
 
         <tbody>
+          {/* 1 row of all the shifts for each day */}
+          <tr>
+            {
+              
+            }
+          </tr>
 
         </tbody>
       </table>
-
-      {
-        shifts.map(shift=>{
-          <p>{shift}</p>
-        })
-      }
-      </div>
+    </div>
   );
 }
 
