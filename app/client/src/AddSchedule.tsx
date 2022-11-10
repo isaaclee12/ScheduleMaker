@@ -4,7 +4,6 @@ import SubmitButton from './SubmitButton';
 
 function AddSchedule() {
 
-    const [id, setId] = useState(0)
     const [day_of_week, setDayOfWeek] = useState("")
     const [date, setDate] = useState("")
     const [name, setName] = useState("")
@@ -13,6 +12,7 @@ function AddSchedule() {
     const [start_time, setStartTime] = useState("")
     const [end_time, setEndTime] = useState("")
     const [total_hours, setTotal_hours] = useState(0)
+
     const [sendingDataBool, setSendingDataBool] = useState(false)
 
     useEffect(() => {
@@ -22,10 +22,55 @@ function AddSchedule() {
     return(
         <div className="mt-20 ml-10">
             <form>
+                
+                <br/>
                 <label>
-                    Test:
-                    <input type="text" className="border"/>
+                    day_of_week:
+                    <input type="text" className="border" onChange={setDayOfWeek}/>
                 </label>
+                
+                <br/>
+                <label>
+                    date:
+                    <input type="text" className="border" onChange={setDate}/>
+                </label>
+                
+                <br/>
+                <label>
+                    name:
+                    <input type="text" className="border" onChange={setName}/>
+                </label>
+                
+                <br/>
+                <label>
+                    position:
+                    <input type="text" className="border" onChange={setPosition}/>
+                </label>
+                
+                <br/>
+                <label>
+                    location:
+                    <input type="text" className="border" onChange={setLocation}/>
+                </label>
+                
+                <br/>
+                <label>
+                    start_time:
+                    <input type="text" className="border" onChange={setStartTime}/>
+                </label>
+                
+                <br/>
+                <label>
+                    end_time:
+                    <input type="text" className="border" onChange={setEndTime}/>
+                </label>
+                
+                <br/>
+                <label>
+                    total_hours:
+                    <input type="text" className="border" onChange={setTotal_hours}/>
+                </label>
+
                 {/* <input type="submit" value="Submit" className="border"/> */}
                 <SubmitButton/>
             </form>
