@@ -1,12 +1,14 @@
 // import internal from 'stream';
-import Schedule from './Schedule';
 import NavBar from './NavBar';
+import Schedule from './Schedule';
+import AddSchedule from './AddSchedule';
 
 function App() {
 
   return (
     <div className="App">
       <NavBar/>
+      <AddSchedule/>
       <Schedule/>
     </div>
   );

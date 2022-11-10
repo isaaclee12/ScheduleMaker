@@ -1,0 +1,11 @@
+id
+day_of_week
+date
+name
+position
+location
+start_time
+end_time
+total_hours
+
+id, day_of_week, date, name, position, location, start_time, end_time, total_hours
