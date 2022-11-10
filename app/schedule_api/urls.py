@@ -1,9 +1,10 @@
 from rest_framework import routers
-from .views import ShiftsViewSet
+from .views import ShiftsViewSet, DateViewSet
 
 router = routers.SimpleRouter()
 
-router.register(r'', ShiftsViewSet, basename="")
+router.register(r'shifts', ShiftsViewSet, basename="shifts")
+router.register(r'dates', DateViewSet, basename="dates")
 
 # Insert more routes here as needed
 
