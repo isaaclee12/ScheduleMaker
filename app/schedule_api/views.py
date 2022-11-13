@@ -19,8 +19,23 @@ class AddScheduleViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
 
+        print(request.META.get('body'))
+
+        """
+        validate the data for the row
+        with several sequential independent "if" statements
+        if invalid at any point
+        return response "error: ..."
+
+        as a non-if case at the bottom
+        pass it to the SQL
+        return Response successfully submitted form data
+
+        and later, have the responses print on screen
+        """
+
         # get body from the request
-        return request.META.get('body')
+        return Response(request.META.get('body'))
         
 class ShiftsViewSet(viewsets.ModelViewSet):
 
