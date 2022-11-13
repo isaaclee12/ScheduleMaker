@@ -8,7 +8,20 @@ from .serializers import ShiftsSerializer
 
 from django.db import connection
 
+# Viewset for taking in form data and adding it to the MySQL DB
+class AddScheduleViewSet(viewsets.ModelViewSet):
 
+    queryset = Shifts.objects.all()
+
+    serializer_class = ShiftsSerializer
+
+    http_method_names = ['post']
+
+    def create(self, request):
+
+        # get body from the request
+        return request.META.get('body')
+        
 class ShiftsViewSet(viewsets.ModelViewSet):
 
     # Query all entries from DB

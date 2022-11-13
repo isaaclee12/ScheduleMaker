@@ -25,6 +25,8 @@ Clone the repository, open a command line instance within the folder:
 
 ---
 
+# TODO: Add a section on how to do the django migrations
+
 ## About the Data:
 
 id (int): ID of row 

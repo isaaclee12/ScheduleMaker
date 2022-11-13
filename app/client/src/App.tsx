@@ -1,7 +1,7 @@
 // import internal from 'stream';
-import NavBar from './NavBar';
-import Schedule from './Schedule';
-import AddSchedule from './AddSchedule';
+import NavBar from './components/NavBar';
+import Schedule from './components/Schedule';
+import AddSchedule from './components/AddSchedule';
 
 function App() {
 

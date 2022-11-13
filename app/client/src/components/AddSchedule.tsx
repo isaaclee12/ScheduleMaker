@@ -1,6 +1,5 @@
 import { ReadVResult } from 'fs';
 import React, {useState, useEffect} from 'react';
-import SubmitButton from './SubmitButton';
 
 function AddSchedule() {
 
@@ -36,14 +35,33 @@ function AddSchedule() {
     }
 
     const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
-        console.log("\nFORM:\n\nday_of_week:", day_of_week);
-        console.log("date:", date);
-        console.log("name:", name);
-        console.log("position:", position);
-        console.log("location:", location);
-        console.log("start_time:", start_time);
-        console.log("end_time:", end_time);
-        console.log("total_hours:", total_hours);
+
+        // get values from useState vars into a JSON
+        const dataToSend = {
+            day_of_week: day_of_week,
+            date: date,
+            name: name,
+            position: position,
+            location: location,
+            start_time: start_time,
+            end_time: end_time,
+            total_hours: total_hours
+        }
+
+        // send the data via POST
+        fetch("http://localhost:8000/schedule/add_schedule", {
+            method: "POST",
+            mode: 'cors',
+            // set the body of this request to that JSON we just made
+            body: JSON.stringify(dataToSend)
+        })
+        .then(response => response.json()
+            .then(data => {
+                console.log(data);
+            }))
+        .catch(err => {
+            console.error(err);
+        })
     }
 
     return(
@@ -98,9 +116,7 @@ function AddSchedule() {
                     <input type="text" className="border" onChange={(e) => setTotalHours(parseInt(e.target.value))}/>
                 </label>
 
-                {/* <input type="submit" value="Submit" className="border"/> */}
                 <button type="submit" onClick={handleSubmit} className="border">SUBMIT</button>
-                {/* <SubmitButton/> */}
             </form>
         </div>
     )
