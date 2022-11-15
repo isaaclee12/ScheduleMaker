@@ -37,6 +37,11 @@ function AddSchedule() {
         return 0;
     }
 
+    const createDateObject = () => {
+        // let tempDate = new Date(start_time_hour, start_time_minute, 00
+        setTestDate()
+    }
+
     const validateTotalHoursTestHelper = (start_time_hour: number, start_time_minute: number, start_time_AMPM: string, end_time_hour: number, end_time_minute: number, end_time_AMPM: string) => {
         if (start_time_hour === 12 && start_time_AMPM === "AM") {start_time_hour = 0}
         if (end_time_hour === 12 && end_time_AMPM === "AM") {end_time_hour = 0}
