@@ -41,47 +41,47 @@ function AddSchedule() {
         setDate(tempDate);
     }
 
-    const validateTotalHoursTestHelper = (start_time_hour: number, start_time_minute: number, start_time_AMPM: string, end_time_hour: number, end_time_minute: number, end_time_AMPM: string) => {
-        if (start_time_hour === 12 && start_time_AMPM === "AM") {start_time_hour = 0}
-        if (end_time_hour === 12 && end_time_AMPM === "AM") {end_time_hour = 0}
+    // const validateTotalHoursTestHelper = (start_time_hour: number, start_time_minute: number, start_time_AMPM: string, end_time_hour: number, end_time_minute: number, end_time_AMPM: string) => {
+    //     if (start_time_hour === 12 && start_time_AMPM === "AM") {start_time_hour = 0}
+    //     if (end_time_hour === 12 && end_time_AMPM === "AM") {end_time_hour = 0}
 
-        if (start_time_hour !== 12 && start_time_AMPM === "PM") {start_time_hour += 12}
-        if (end_time_hour !== 12 && end_time_AMPM === "PM") {end_time_hour += 12}
+    //     if (start_time_hour !== 12 && start_time_AMPM === "PM") {start_time_hour += 12}
+    //     if (end_time_hour !== 12 && end_time_AMPM === "PM") {end_time_hour += 12}
 
-        console.log("start: "+start_time_hour+":"+start_time_minute+start_time_AMPM+" end: "+end_time_hour+":"+end_time_minute+end_time_AMPM)
+    //     console.log("start: "+start_time_hour+":"+start_time_minute+start_time_AMPM+" end: "+end_time_hour+":"+end_time_minute+end_time_AMPM)
 
-        if (start_time_hour > end_time_hour) {return false}
-        if (start_time_hour === end_time_hour && start_time_minute >= end_time_minute) {return false}
+    //     if (start_time_hour > end_time_hour) {return false}
+    //     if (start_time_hour === end_time_hour && start_time_minute >= end_time_minute) {return false}
 
-        return true;
-    }
+    //     return true;
+    // }
 
-    const validateTotalHoursTest = () => {
-        if (
-        validateTotalHoursTestHelper(12,0,"AM",12,0,"AM") === false &&
-        validateTotalHoursTestHelper(12,0,"AM",12,0,"PM") === true && 
-        validateTotalHoursTestHelper(12,0,"PM",12,0,"AM") === false &&
-        validateTotalHoursTestHelper(12,0,"PM",12,0,"PM") === false &&
+    // const validateTotalHoursTest = () => {
+    //     if (
+    //     validateTotalHoursTestHelper(12,0,"AM",12,0,"AM") === false &&
+    //     validateTotalHoursTestHelper(12,0,"AM",12,0,"PM") === true && 
+    //     validateTotalHoursTestHelper(12,0,"PM",12,0,"AM") === false &&
+    //     validateTotalHoursTestHelper(12,0,"PM",12,0,"PM") === false &&
 
-        validateTotalHoursTestHelper(12,0,"AM",1,0,"AM") === true &&
-        validateTotalHoursTestHelper(1,0,"AM",12,0,"AM") === false &&
+    //     validateTotalHoursTestHelper(12,0,"AM",1,0,"AM") === true &&
+    //     validateTotalHoursTestHelper(1,0,"AM",12,0,"AM") === false &&
 
-        validateTotalHoursTestHelper(12,0,"AM",1,0,"PM") === true &&
-        validateTotalHoursTestHelper(1,0,"PM",12,0,"AM") === false &&
+    //     validateTotalHoursTestHelper(12,0,"AM",1,0,"PM") === true &&
+    //     validateTotalHoursTestHelper(1,0,"PM",12,0,"AM") === false &&
 
-        validateTotalHoursTestHelper(1,0,"PM",1,0,"PM") === false &&
+    //     validateTotalHoursTestHelper(1,0,"PM",1,0,"PM") === false &&
 
-        validateTotalHoursTestHelper(12,0,"PM",12,15,"PM") === true &&
-        validateTotalHoursTestHelper(12,15,"PM",12,0,"PM") === false &&
-        validateTotalHoursTestHelper(12,30,"PM",12,30,"PM") === false &&
-        validateTotalHoursTestHelper(12,0,"PM",12,45,"PM") === true &&
-        validateTotalHoursTestHelper(12,45,"PM",12,0,"PM") === false 
-        ) { 
-            console.log("tests passed");
-            return
-        }
-        console.log("fail");
-    }
+    //     validateTotalHoursTestHelper(12,0,"PM",12,15,"PM") === true &&
+    //     validateTotalHoursTestHelper(12,15,"PM",12,0,"PM") === false &&
+    //     validateTotalHoursTestHelper(12,30,"PM",12,30,"PM") === false &&
+    //     validateTotalHoursTestHelper(12,0,"PM",12,45,"PM") === true &&
+    //     validateTotalHoursTestHelper(12,45,"PM",12,0,"PM") === false 
+    //     ) { 
+    //         console.log("tests passed");
+    //         return
+    //     }
+    //     console.log("fail");
+    // }
 
     const validateTotalHours = (): boolean => {
         let temp_start_hour = start_time_hour;
