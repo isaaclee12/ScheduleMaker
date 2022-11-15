@@ -1,7 +1,17 @@
 import { ReadVResult } from 'fs';
 import React, {useState, useEffect} from 'react';
+import DatePicker from 'react-datepicker';
 
 function AddSchedule() {
+
+    const [testDate, setTestDate] = useState(new Date());
+
+    <DatePicker
+    selected={testDate}
+    onChange={setTestDate}
+    showTimeSelect
+    dateFormat="Pp"
+    />
 
     const [day_of_week, setDayOfWeek] = useState("")
     const [date, setDate] = useState("")
@@ -68,11 +78,19 @@ function AddSchedule() {
     }
 
     const validateTotalHours = (): boolean => {
-        if (start_time_hour === 12) {setStartTimeHour(start_time_hour - 12)}
-        if (end_time_AMPM === "PM") {setStartTimeHour(end_time_hour + 12)}
+        let temp_start_hour = start_time_hour;
+        let temp_end_hour = end_time_hour;
 
-        if (start_time_hour >= end_time_hour) {return false}
-        if (start_time_hour === end_time_hour && start_time_minute > end_time_minute) {return false}
+        if (temp_start_hour === 12 && start_time_AMPM === "AM") {temp_start_hour = 0}
+        if (temp_end_hour === 12 && end_time_AMPM === "AM") {temp_end_hour = 0}
+
+        if (temp_start_hour !== 12 && start_time_AMPM === "PM") {temp_start_hour += 12}
+        if (temp_end_hour !== 12 && end_time_AMPM === "PM") {temp_end_hour += 12}
+
+        console.log("start: "+temp_start_hour+":"+start_time_minute+start_time_AMPM+" end: "+temp_end_hour+":"+end_time_minute+end_time_AMPM)
+
+        if (temp_start_hour > temp_end_hour) {return false}
+        if (temp_start_hour === temp_end_hour && start_time_minute >= end_time_minute) {return false}
 
         return true;
     }
@@ -86,6 +104,12 @@ function AddSchedule() {
         // Validate that the end time is after the start time
         const dataIsValid = validateTotalHours();
         console.log("Data Validity Status:",dataIsValid);
+
+        // return on failed validation
+        if (!dataIsValid) {
+            return; 
+            // TODO: Implement bool that sets an error saying "hi your times are wrong"
+        }
 
         // get values from useState vars into a JSON
         const dataToSend = {
