@@ -5,7 +5,6 @@ function Schedule() {
     const [shifts, setShifts] = useState([])
     const [dates, setDates] = useState([])
 
-
     const [mondayShifts, setMondayShifts] = useState([])
     const [tuesdayShifts, setTuesdayShifts] = useState([])
     const [wednesdayShifts, setWednesdayShifts] = useState([])

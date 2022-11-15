@@ -8,10 +8,12 @@ function AddSchedule() {
 
     <DatePicker
     selected={testDate}
-    onChange={setTestDate}
+    onChange={(d : Date) => setTestDate(d)}
     showTimeSelect
     dateFormat="Pp"
     />
+
+    // TODO: Get date and time and put it into a ISO8601 Date() object, WAY easier.
 
     const [day_of_week, setDayOfWeek] = useState("")
     const [date, setDate] = useState("")
