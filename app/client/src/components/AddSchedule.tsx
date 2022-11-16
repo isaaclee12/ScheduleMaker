@@ -1,22 +1,15 @@
 import { ReadVResult } from 'fs';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, SetStateAction} from 'react';
 import DatePicker from 'react-datepicker';
 
 function AddSchedule() {
 
-    const [testDate, setTestDate] = useState(new Date());
-
-    <DatePicker
-    selected={testDate}
-    onChange={(d : Date) => setTestDate(d)}
-    showTimeSelect
-    dateFormat="Pp"
-    />
+    // const [testDate, setTestDate] = useState(new Date());
 
     // TODO: Get date and time and put it into a ISO8601 Date() object, WAY easier.
 
     const [day_of_week, setDayOfWeek] = useState("")
-    const [date, setDate] = useState("")
+    const [date, setDate] = useState(null)
     const [name, setName] = useState("")
     const [position, setPosition] = useState("")
     const [location, setLocation] = useState("")
@@ -37,9 +30,15 @@ function AddSchedule() {
         return 0;
     }
 
-    const createDateObject = () => {
-        // let tempDate = new Date(start_time_hour, start_time_minute, 00
-        setTestDate()
+    useEffect(() => {
+        console.log(date);
+    }, [date])
+
+    const createDateObject = (dateParam: any) => {
+        let dateString: string = dateParam + start_time_hour + ":" + start_time_minute + ":00";
+        console.log(dateString);
+        let tempDate: any = new Date(dateString);
+        setDate(tempDate);
     }
 
     const validateTotalHoursTestHelper = (start_time_hour: number, start_time_minute: number, start_time_AMPM: string, end_time_hour: number, end_time_minute: number, end_time_AMPM: string) => {
@@ -148,6 +147,7 @@ function AddSchedule() {
 
     return(
         <div className="mt-20 ml-10">
+            <br/>
             <button className="border" onClick={(e) => validateTotalHoursTest()}>TESTER</button>
             <form>
                 
@@ -155,15 +155,27 @@ function AddSchedule() {
                 <br/>
                 <label>
                     day_of_week:
-                    <input type="text" className="border" onChange={(e) => setDayOfWeek(e.target.value)}/>
+                    <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setDayOfWeek(e.target.value)}/>
                 </label>
                 
                 <br/>
-                <label>
+                <div className="flex items-center justify-center">
+                    <div className="datepicker relative form-floating mb-3 xl:w-96">
+                        <input type="text"
+                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        placeholder="Select a date" />
+                        <label htmlFor="floatingInput" className="text-gray-700">Select a date</label>
+                        <button className="datepicker-toggle-button" data-mdb-toggle="datepicker">
+                            <i className="fas fa-calendar datepicker-toggle-icon"></i>
+                        </button>
+                    </div>
+                </div>
+                <DatePicker selected={date} minDate={new Date()} onChange={createDateObject} />
+                {/* <label>
                     date:
                     <input type="text" className="border" onChange={(e) => setDate(e.target.value)}/>
                 </label>
-                
+                 */}
                 <br/>
                 <label>
                     name:
