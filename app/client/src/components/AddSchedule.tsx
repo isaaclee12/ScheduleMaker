@@ -17,14 +17,7 @@ function AddSchedule() {
     const [location, setLocation] = useState("")
 
     const [start_time, setStartTime] = useState("")
-    const [start_time_hour, setStartTimeHour] = useState(0)
-    const [start_time_minute, setStartTimeMinute] = useState(0)
-    const [start_time_AMPM, setStartTimeAMPM] = useState("")
-
     const [end_time, setEndTime] = useState("")
-    const [end_time_hour, setEndTimeHour] = useState(0)
-    const [end_time_minute, setEndTimeMinute] = useState(0)
-    const [end_time_AMPM, setEndTimeAMPM] = useState("")
 
     const [total_hours, setTotalHours] = useState(0)
 
@@ -36,69 +29,20 @@ function AddSchedule() {
         console.log(date);
     }, [date])
 
-    const createDateObject = (dateParam: any) => {
-        let dateString: string = dateParam + start_time_hour + ":" + start_time_minute + ":00";
-        console.log(dateString);
-        let tempDate: any = new Date(dateString);
-        setDate(tempDate);
-    }
-
-    // const validateTotalHoursTestHelper = (start_time_hour: number, start_time_minute: number, start_time_AMPM: string, end_time_hour: number, end_time_minute: number, end_time_AMPM: string) => {
-    //     if (start_time_hour === 12 && start_time_AMPM === "AM") {start_time_hour = 0}
-    //     if (end_time_hour === 12 && end_time_AMPM === "AM") {end_time_hour = 0}
-
-    //     if (start_time_hour !== 12 && start_time_AMPM === "PM") {start_time_hour += 12}
-    //     if (end_time_hour !== 12 && end_time_AMPM === "PM") {end_time_hour += 12}
-
-    //     console.log("start: "+start_time_hour+":"+start_time_minute+start_time_AMPM+" end: "+end_time_hour+":"+end_time_minute+end_time_AMPM)
-
-    //     if (start_time_hour > end_time_hour) {return false}
-    //     if (start_time_hour === end_time_hour && start_time_minute >= end_time_minute) {return false}
-
-    //     return true;
-    // }
-
-    // const validateTotalHoursTest = () => {
-    //     if (
-    //     validateTotalHoursTestHelper(12,0,"AM",12,0,"AM") === false &&
-    //     validateTotalHoursTestHelper(12,0,"AM",12,0,"PM") === true && 
-    //     validateTotalHoursTestHelper(12,0,"PM",12,0,"AM") === false &&
-    //     validateTotalHoursTestHelper(12,0,"PM",12,0,"PM") === false &&
-
-    //     validateTotalHoursTestHelper(12,0,"AM",1,0,"AM") === true &&
-    //     validateTotalHoursTestHelper(1,0,"AM",12,0,"AM") === false &&
-
-    //     validateTotalHoursTestHelper(12,0,"AM",1,0,"PM") === true &&
-    //     validateTotalHoursTestHelper(1,0,"PM",12,0,"AM") === false &&
-
-    //     validateTotalHoursTestHelper(1,0,"PM",1,0,"PM") === false &&
-
-    //     validateTotalHoursTestHelper(12,0,"PM",12,15,"PM") === true &&
-    //     validateTotalHoursTestHelper(12,15,"PM",12,0,"PM") === false &&
-    //     validateTotalHoursTestHelper(12,30,"PM",12,30,"PM") === false &&
-    //     validateTotalHoursTestHelper(12,0,"PM",12,45,"PM") === true &&
-    //     validateTotalHoursTestHelper(12,45,"PM",12,0,"PM") === false 
-    //     ) { 
-    //         console.log("tests passed");
-    //         return
-    //     }
-    //     console.log("fail");
-    // }
-
     const validateTotalHours = (): boolean => {
-        let temp_start_hour = start_time_hour;
-        let temp_end_hour = end_time_hour;
+        // let temp_start_hour = start_time_hour;
+        // let temp_end_hour = end_time_hour;
 
-        if (temp_start_hour === 12 && start_time_AMPM === "AM") {temp_start_hour = 0}
-        if (temp_end_hour === 12 && end_time_AMPM === "AM") {temp_end_hour = 0}
+        // if (temp_start_hour === 12 && start_time_AMPM === "AM") {temp_start_hour = 0}
+        // if (temp_end_hour === 12 && end_time_AMPM === "AM") {temp_end_hour = 0}
 
-        if (temp_start_hour !== 12 && start_time_AMPM === "PM") {temp_start_hour += 12}
-        if (temp_end_hour !== 12 && end_time_AMPM === "PM") {temp_end_hour += 12}
+        // if (temp_start_hour !== 12 && start_time_AMPM === "PM") {temp_start_hour += 12}
+        // if (temp_end_hour !== 12 && end_time_AMPM === "PM") {temp_end_hour += 12}
 
-        console.log("start: "+temp_start_hour+":"+start_time_minute+start_time_AMPM+" end: "+temp_end_hour+":"+end_time_minute+end_time_AMPM)
+        // console.log("start: "+temp_start_hour+":"+start_time_minute+start_time_AMPM+" end: "+temp_end_hour+":"+end_time_minute+end_time_AMPM)
 
-        if (temp_start_hour > temp_end_hour) {return false}
-        if (temp_start_hour === temp_end_hour && start_time_minute >= end_time_minute) {return false}
+        // if (temp_start_hour > temp_end_hour) {return false}
+        // if (temp_start_hour === temp_end_hour && start_time_minute >= end_time_minute) {return false}
 
         return true;
     }
@@ -147,121 +91,131 @@ function AddSchedule() {
         })
     }
 
+    // STYLING
+    const [inputStyle, setInputStyle] = useState("form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center")
+
     return(
-        <div className="mt-20 ml-10">
+        <div className=" bg-gradient-to-r from-cyan-500 to-blue-500">
             <br/>
+
             {/* <button className="border" onClick={(e) => validateTotalHoursTest()}>TESTER</button> */}
-            <form>
-                
-                <br/>
-                <label>
-                    day_of_week:
-                    {/* form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center */}
-                    <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setDayOfWeek(e.target.value)}/>
-                </label>     
-                <label>
-                    date:
-                    <div className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center">
-                        <DatePicker selected={date} onChange={(d: Date) => setDate(d)} />
-                    </div>       
-                </label>
 
-                <br/>
-                <label>
-                    name:
-                    <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setName(e.target.value)}/>
-                </label>
-                
-                <br/>
-                <label>
-                    position:
-                    <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setPosition(e.target.value)}/>
-                </label>
-                
-                <br/>
-                <label>
-                    location:
-                    <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setLocation(e.target.value)}/>
-                </label>
-                
-                <br/>
-                <label>
-                    start_time:
-                    {/* <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setStartTime(e.target.value)}/> */}
-                    <div id="selectStartTime">
-                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="startTimeHour" id="startTimeHour" 
-                        onChange={(e) => setStartTimeHour(parseInt(e.target.value))}>
-                            <option value="12">12</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="startTimeMinute" id="startTimeMinute" 
-                        onChange={(e) => setStartTimeMinute(parseInt(e.target.value))}>
-                            <option value="0">00</option>
-                            <option value="15">15</option>
-                            <option value="30">30</option>
-                            <option value="45">45</option>
-                        </select>
-                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="startTimeAMPM" id="startTimeAMPM" 
-                        onChange={(e) => setStartTimeAMPM(e.target.value)}>
-                            <option value="AM">AM</option>
-                            <option value="PM">PM</option>
-                        </select>
-                    </div>
-                </label>
+            <h1 className="flex justify-center text-5xl mb-10 mt-5">Da Form</h1>
 
-                <br/>
-                <label>
-                    end_time:
-                    {/* <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setEndTime(e.target.value)}/> */}
-                    <div id="selectEndTime">
-                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="endTimeHour" id="endTimeHour" 
-                        onChange={(e) => setEndTimeHour(parseInt(e.target.value))}>
-                            <option value="12">12</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="endTimeMinute" id="endTimeMinute" 
-                        onChange={(e) => setEndTimeMinute(parseInt(e.target.value))}>
-                            <option value="0">00</option>
-                            <option value="15">15</option>
-                            <option value="30">30</option>
-                            <option value="45">45</option>
-                        </select>
-                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="endTimeAMPM" id="endTimeAMPM" 
-                        onChange={(e) => setEndTimeAMPM(e.target.value)}>
-                            <option value="AM">AM</option>
-                            <option value="PM">PM</option>
-                        </select>
-                    </div>
-                </label>
-                
-                <br/>
-                <label>
-                    total_hours:
-                    <p>{calculateTotalHours()}</p>
-                </label>
+            <div className="w-full bg-gradient-to-r from-cyan-500 to-blue-500">
+                <form className="mx-60 mt-10 pb-40">
+                    <br/>
+                    <label className="">
+                        Day Of Week:
+                        {/*{inputStyle}*/}
+                        <input type="text" className={inputStyle} onChange={(e) => setDayOfWeek(e.target.value)}/>
+                    </label>     
 
-                <button type="submit" onClick={handleSubmit} className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center">SUBMIT</button>
-            </form>
+                    <br/>
+                    <label>
+                        date:
+                        <div className={inputStyle}>
+                            <DatePicker selected={date} onChange={(d: Date) => setDate(d)} />
+                        </div>       
+                    </label>
+
+                    <br/>
+                    <label>
+                        name:
+                        <input type="text" className={inputStyle} onChange={(e) => setName(e.target.value)}/>
+                    </label>
+                    
+                    <br/>
+                    <label>
+                        position:
+                        <input type="text" className={inputStyle} onChange={(e) => setPosition(e.target.value)}/>
+                    </label>
+                    
+                    <br/>
+                    <label>
+                        location:
+                        <input type="text" className={inputStyle} onChange={(e) => setLocation(e.target.value)}/>
+                    </label>
+                    
+                    <br/>
+                    <label>
+                        start_time:
+                        {/* <input type="text" className={inputStyle} onChange={(e) => setStartTime(e.target.value)}/> */}
+                        <div id="selectStartTime">
+                            <select className={inputStyle} name="startTimeHour" id="startTimeHour" 
+                            onChange={(e) => setStartTime(e.target.value)}>
+                                <option value="12:00AM">12:00AM</option>
+                                <option value="1:00AM">1:00AM</option>
+                                <option value="2:00AM">2:00AM</option>
+                                <option value="3:00AM">3:00AM</option>
+                                <option value="4:00AM">4:00AM</option>
+                                <option value="5:00AM">5:00AM</option>
+                                <option value="6:00AM">6:00AM</option>
+                                <option value="7:00AM">7:00AM</option>
+                                <option value="8:00AM">8:00AM</option>
+                                <option value="9:00AM">9:00AM</option>
+                                <option value="10:00AM">10:00AM</option>
+                                <option value="11:00AM">11:00AM</option>
+                                <option value="12:00AM">12:00PM</option>
+                                <option value="1:00AM">1:00PM</option>
+                                <option value="2:00AM">2:00PM</option>
+                                <option value="3:00AM">3:00PM</option>
+                                <option value="4:00AM">4:00PM</option>
+                                <option value="5:00AM">5:00PM</option>
+                                <option value="6:00AM">6:00PM</option>
+                                <option value="7:00AM">7:00PM</option>
+                                <option value="8:00AM">8:00PM</option>
+                                <option value="9:00AM">9:00PM</option>
+                                <option value="10:00AM">10:00PM</option>
+                                <option value="11:00AM">11:00PM</option>
+                            </select>
+                        </div>
+                    </label>
+
+                    <br/>
+                    <label>
+                        end_time:
+                        {/* <input type="text" className={inputStyle} onChange={(e) => setEndTime(e.target.value)}/> */}
+                        <div id="selectEndTime">
+                            <select className={inputStyle} name="endTimeHour" id="endTimeHour" 
+                            onChange={(e) => setEndTime(e.target.value)}>
+                                <option value="12:00AM">12:00AM</option>
+                                <option value="1:00AM">1:00AM</option>
+                                <option value="2:00AM">2:00AM</option>
+                                <option value="3:00AM">3:00AM</option>
+                                <option value="4:00AM">4:00AM</option>
+                                <option value="5:00AM">5:00AM</option>
+                                <option value="6:00AM">6:00AM</option>
+                                <option value="7:00AM">7:00AM</option>
+                                <option value="8:00AM">8:00AM</option>
+                                <option value="9:00AM">9:00AM</option>
+                                <option value="10:00AM">10:00AM</option>
+                                <option value="11:00AM">11:00AM</option>
+                                <option value="12:00AM">12:00PM</option>
+                                <option value="1:00AM">1:00PM</option>
+                                <option value="2:00AM">2:00PM</option>
+                                <option value="3:00AM">3:00PM</option>
+                                <option value="4:00AM">4:00PM</option>
+                                <option value="5:00AM">5:00PM</option>
+                                <option value="6:00AM">6:00PM</option>
+                                <option value="7:00AM">7:00PM</option>
+                                <option value="8:00AM">8:00PM</option>
+                                <option value="9:00AM">9:00PM</option>
+                                <option value="10:00AM">10:00PM</option>
+                                <option value="11:00AM">11:00PM</option>
+                            </select>
+                        </div>
+                    </label>
+                    
+                    <br/>
+                    <label>
+                        total_hours: {calculateTotalHours()}
+                    </label>
+
+                    <button type="submit" onClick={handleSubmit} className={inputStyle}>SUBMIT</button>
+                </form>
+            </div>
+                
         </div>
     )
 }
