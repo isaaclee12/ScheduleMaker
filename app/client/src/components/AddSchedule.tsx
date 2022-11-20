@@ -1,6 +1,8 @@
 // import { ReadVResult } from 'fs';
 import React, {useState, useEffect, SetStateAction} from 'react';
 import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import DateSelector from './DateSelector';
 
 function AddSchedule() {
 
@@ -9,7 +11,7 @@ function AddSchedule() {
     // TODO: Get date and time and put it into a ISO8601 Date() object, WAY easier.
 
     const [day_of_week, setDayOfWeek] = useState("")
-    const [date, setDate] = useState(null)
+    const [date, setDate] = useState(new Date())
     const [name, setName] = useState("")
     const [position, setPosition] = useState("")
     const [location, setLocation] = useState("")
@@ -148,58 +150,46 @@ function AddSchedule() {
     return(
         <div className="mt-20 ml-10">
             <br/>
-            <button className="border" onClick={(e) => validateTotalHoursTest()}>TESTER</button>
+            {/* <button className="border" onClick={(e) => validateTotalHoursTest()}>TESTER</button> */}
             <form>
-                
                 
                 <br/>
                 <label>
                     day_of_week:
+                    {/* form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center */}
                     <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setDayOfWeek(e.target.value)}/>
-                </label>
-                
-                <br/>
-                <div className="flex items-center justify-center">
-                    <div className="datepicker relative form-floating mb-3 xl:w-96">
-                        <input type="text"
-                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        placeholder="Select a date" />
-                        <label htmlFor="floatingInput" className="text-gray-700">Select a date</label>
-                        <button className="datepicker-toggle-button" data-mdb-toggle="datepicker">
-                            <i className="fas fa-calendar datepicker-toggle-icon"></i>
-                        </button>
-                    </div>
-                </div>
-                <DatePicker selected={date} minDate={new Date()} onChange={createDateObject} />
-                {/* <label>
+                </label>     
+                <label>
                     date:
-                    <input type="text" className="border" onChange={(e) => setDate(e.target.value)}/>
+                    <div className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center">
+                        <DatePicker selected={date} onChange={(d: Date) => setDate(d)} />
+                    </div>       
                 </label>
-                 */}
+
                 <br/>
                 <label>
                     name:
-                    <input type="text" className="border" onChange={(e) => setName(e.target.value)}/>
+                    <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setName(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     position:
-                    <input type="text" className="border" onChange={(e) => setPosition(e.target.value)}/>
+                    <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setPosition(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     location:
-                    <input type="text" className="border" onChange={(e) => setLocation(e.target.value)}/>
+                    <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setLocation(e.target.value)}/>
                 </label>
                 
                 <br/>
                 <label>
                     start_time:
-                    {/* <input type="text" className="border" onChange={(e) => setStartTime(e.target.value)}/> */}
+                    {/* <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setStartTime(e.target.value)}/> */}
                     <div id="selectStartTime">
-                        <select className="border" name="startTimeHour" id="startTimeHour" 
+                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="startTimeHour" id="startTimeHour" 
                         onChange={(e) => setStartTimeHour(parseInt(e.target.value))}>
                             <option value="12">12</option>
                             <option value="1">1</option>
@@ -214,14 +204,14 @@ function AddSchedule() {
                             <option value="10">10</option>
                             <option value="11">11</option>
                         </select>
-                        <select className="border" name="startTimeMinute" id="startTimeMinute" 
+                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="startTimeMinute" id="startTimeMinute" 
                         onChange={(e) => setStartTimeMinute(parseInt(e.target.value))}>
                             <option value="0">00</option>
                             <option value="15">15</option>
                             <option value="30">30</option>
                             <option value="45">45</option>
                         </select>
-                        <select className="border" name="startTimeAMPM" id="startTimeAMPM" 
+                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="startTimeAMPM" id="startTimeAMPM" 
                         onChange={(e) => setStartTimeAMPM(e.target.value)}>
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
@@ -232,9 +222,9 @@ function AddSchedule() {
                 <br/>
                 <label>
                     end_time:
-                    {/* <input type="text" className="border" onChange={(e) => setEndTime(e.target.value)}/> */}
+                    {/* <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" onChange={(e) => setEndTime(e.target.value)}/> */}
                     <div id="selectEndTime">
-                        <select className="border" name="endTimeHour" id="endTimeHour" 
+                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="endTimeHour" id="endTimeHour" 
                         onChange={(e) => setEndTimeHour(parseInt(e.target.value))}>
                             <option value="12">12</option>
                             <option value="1">1</option>
@@ -249,14 +239,14 @@ function AddSchedule() {
                             <option value="10">10</option>
                             <option value="11">11</option>
                         </select>
-                        <select className="border" name="endTimeMinute" id="endTimeMinute" 
+                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="endTimeMinute" id="endTimeMinute" 
                         onChange={(e) => setEndTimeMinute(parseInt(e.target.value))}>
                             <option value="0">00</option>
                             <option value="15">15</option>
                             <option value="30">30</option>
                             <option value="45">45</option>
                         </select>
-                        <select className="border" name="endTimeAMPM" id="endTimeAMPM" 
+                        <select className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center" name="endTimeAMPM" id="endTimeAMPM" 
                         onChange={(e) => setEndTimeAMPM(e.target.value)}>
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
@@ -270,7 +260,7 @@ function AddSchedule() {
                     <p>{calculateTotalHours()}</p>
                 </label>
 
-                <button type="submit" onClick={handleSubmit} className="border">SUBMIT</button>
+                <button type="submit" onClick={handleSubmit} className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center">SUBMIT</button>
             </form>
         </div>
     )
