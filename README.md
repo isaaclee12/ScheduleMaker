@@ -30,7 +30,7 @@ Clone the repository, open a command line instance within the folder:
 
 ---
 
-# TODO: Add a section on how to do the django migrations
+TODO: Add a section on how to do the django migrations
 
 ## About the Data:
 
