@@ -1,5 +1,10 @@
-# Small-Business-Schedule-Software
-A webtool for keep track of your employee's schedule. Made with Typescript, React, Django, and MySQL.
+# Schedulemaker
+
+## A webtool designed to help your small business keep track of your employee's schedules!
+#### For custom builds, please email the developer at: isaac.wonha.lee@outlook.com
+
+
+Made with Typescript, React, Django, and MySQL.
 
 
 ---
