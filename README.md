@@ -1,4 +1,4 @@
-# Schedulemaker
+# ScheduleMaker
 
 ## A webtool designed to help your small business keep track of your employee's schedules!
 #### For custom builds, please email the developer at: isaac.wonha.lee@outlook.com
