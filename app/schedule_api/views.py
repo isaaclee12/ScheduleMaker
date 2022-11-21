@@ -13,13 +13,21 @@ class AddScheduleViewSet(viewsets.ModelViewSet):
 
     queryset = Shifts.objects.all()
 
-    serializer_class = ShiftsSerializer
-
     http_method_names = ['post']
 
     def create(self, request):
 
-        print(request.META.get('body'))
+        serializer = ShiftsSerializer(data=request.body)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response("Success")
+        return Response("Failure")
+
+
+
+
+        
 
         """
         validate the data for the row
