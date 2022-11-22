@@ -18,6 +18,7 @@ class AddScheduleViewSet(viewsets.ModelViewSet):
     def create(self, request):
 
         serializer = ShiftsSerializer(data=request.body)
+        print(request.body)
 
         if serializer.is_valid():
             serializer.save()
