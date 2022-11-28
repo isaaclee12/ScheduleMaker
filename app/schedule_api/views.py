@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework import viewsets
+from rest_framework.parsers import JSONParser 
 from rest_framework.response import Response
 
 from .models import Shifts
@@ -17,13 +18,19 @@ class AddScheduleViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
 
-        serializer = ShiftsSerializer(data=request.body)
-        print("test")
-        print(request.body)
+        data_to_add = JSONParser().parse(request)
+        print("got data:", data_to_add)
+        serializer = ShiftsSerializer(data=data_to_add)
+        # serializer = ShiftsSerializer(data=request.data)
+
+        # print(request.body)
+        print("Post", serializer.is_valid())
 
         if serializer.is_valid():
             serializer.save()
+            print("Success")
             return Response("Success")
+
         return Response("Failure")
 
 

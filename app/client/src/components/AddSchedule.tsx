@@ -108,33 +108,33 @@ function AddSchedule() {
                     <label className="">
                         Day Of Week:
                         {/*{inputStyle}*/}
-                        <input type="text" className={inputStyle} onChange={(e) => setDayOfWeek(e.target.value)}/>
+                        <input type="text" className={inputStyle} value="Monday" onChange={(e) => setDayOfWeek(e.target.value)}/>
                     </label>     
 
                     <br/>
                     <label>
                         date:
                         <div className={inputStyle}>
-                            <DatePicker selected={date} onChange={(d: Date) => setDate(d)} />
+                            <DatePicker selected={date} value="11/07/2022" onChange={(d: Date) => setDate(d)} />
                         </div>       
                     </label>
 
                     <br/>
                     <label>
                         name:
-                        <input type="text" className={inputStyle} onChange={(e) => setName(e.target.value)}/>
+                        <input type="text" className={inputStyle} value="Moe" onChange={(e) => setName(e.target.value)}/>
                     </label>
                     
                     <br/>
                     <label>
                         position:
-                        <input type="text" className={inputStyle} onChange={(e) => setPosition(e.target.value)}/>
+                        <input type="text" className={inputStyle} value="Line Cook" onChange={(e) => setPosition(e.target.value)}/>
                     </label>
                     
                     <br/>
                     <label>
                         location:
-                        <input type="text" className={inputStyle} onChange={(e) => setLocation(e.target.value)}/>
+                        <input type="text" className={inputStyle} value="Main St" onChange={(e) => setLocation(e.target.value)}/>
                     </label>
                     
                     <br/>
@@ -156,18 +156,18 @@ function AddSchedule() {
                                 <option value="9:00AM">9:00AM</option>
                                 <option value="10:00AM">10:00AM</option>
                                 <option value="11:00AM">11:00AM</option>
-                                <option value="12:00AM">12:00PM</option>
-                                <option value="1:00AM">1:00PM</option>
-                                <option value="2:00AM">2:00PM</option>
-                                <option value="3:00AM">3:00PM</option>
-                                <option value="4:00AM">4:00PM</option>
-                                <option value="5:00AM">5:00PM</option>
-                                <option value="6:00AM">6:00PM</option>
-                                <option value="7:00AM">7:00PM</option>
-                                <option value="8:00AM">8:00PM</option>
-                                <option value="9:00AM">9:00PM</option>
-                                <option value="10:00AM">10:00PM</option>
-                                <option value="11:00AM">11:00PM</option>
+                                <option value="12:00PM">12:00PM</option>
+                                <option value="1:00PM">1:00PM</option>
+                                <option value="2:00PM">2:00PM</option>
+                                <option value="3:00PM">3:00PM</option>
+                                <option value="4:00PM">4:00PM</option>
+                                <option value="5:00PM">5:00PM</option>
+                                <option value="6:00PM">6:00PM</option>
+                                <option value="7:00PM">7:00PM</option>
+                                <option value="8:00PM">8:00PM</option>
+                                <option value="9:00PM">9:00PM</option>
+                                <option value="10:00PM">10:00PM</option>
+                                <option value="11:00PM">11:00PM</option>
                             </select>
                         </div>
                     </label>
@@ -191,18 +191,18 @@ function AddSchedule() {
                                 <option value="9:00AM">9:00AM</option>
                                 <option value="10:00AM">10:00AM</option>
                                 <option value="11:00AM">11:00AM</option>
-                                <option value="12:00AM">12:00PM</option>
-                                <option value="1:00AM">1:00PM</option>
-                                <option value="2:00AM">2:00PM</option>
-                                <option value="3:00AM">3:00PM</option>
-                                <option value="4:00AM">4:00PM</option>
-                                <option value="5:00AM">5:00PM</option>
-                                <option value="6:00AM">6:00PM</option>
-                                <option value="7:00AM">7:00PM</option>
-                                <option value="8:00AM">8:00PM</option>
-                                <option value="9:00AM">9:00PM</option>
-                                <option value="10:00AM">10:00PM</option>
-                                <option value="11:00AM">11:00PM</option>
+                                <option value="12:00PM">12:00PM</option>
+                                <option value="1:00PM">1:00PM</option>
+                                <option value="2:00PM">2:00PM</option>
+                                <option value="3:00PM">3:00PM</option>
+                                <option value="4:00PM">4:00PM</option>
+                                <option value="5:00PM">5:00PM</option>
+                                <option value="6:00PM">6:00PM</option>
+                                <option value="7:00PM">7:00PM</option>
+                                <option value="8:00PM">8:00PM</option>
+                                <option value="9:00PM">9:00PM</option>
+                                <option value="10:00PM">10:00PM</option>
+                                <option value="11:00PM">11:00PM</option>
                             </select>
                         </div>
                     </label>
