@@ -19,13 +19,16 @@ class AddScheduleViewSet(viewsets.ModelViewSet):
     def create(self, request):
 
         data_to_add = JSONParser().parse(request)
-        print("got data:", data_to_add)
         serializer = ShiftsSerializer(data=data_to_add)
         # serializer = ShiftsSerializer(data=request.data)
 
         # print(request.body)
-        print("Post", serializer.is_valid())
+        print("got data:", serializer.initial_data)
 
+        # print("Post", serializer.is_valid())
+        if not serializer.is_valid():
+            print("Errors", serializer.errors)
+   
         if serializer.is_valid():
             serializer.save()
             print("Success")

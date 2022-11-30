@@ -1,4 +1,5 @@
-// import internal from 'stream';
+import {Route, Routes} from 'react-router-dom';
+
 import NavBar from './components/NavBar';
 import Schedule from './components/Schedule';
 import AddSchedule from './components/AddSchedule';
@@ -9,8 +10,12 @@ function App() {
   return (
     <div className="App">
       <NavBar/>
-      <Schedule/>
-      <AddSchedule/>
+      
+      <Routes>
+        <Route index element={<Schedule/>}></Route>
+        <Route path="add" element={<AddSchedule/>}></Route>
+      </Routes>
+      
       <Footer/>
     </div>
   );

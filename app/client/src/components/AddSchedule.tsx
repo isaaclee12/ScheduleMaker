@@ -122,17 +122,30 @@ function AddSchedule() {
             // TODO: Implement bool that sets an error saying "hi your times are wrong"
         }
 
-        // get values from useState vars into a JSON
+        // TODO: Debug values, comment out when not testing API
         const dataToSend = {
-            dayOfWeek: dayOfWeek,
-            date: date.toISOString().substring(0,10), // These functions trim just the date part of the date object in ISO8601 format, e.g. "2022-11-13"
-            name: name,
-            position: position,
-            location: location,
-            startTime: startTime,
-            endTime: endTime,
-            totalHours: totalHours
+            day_of_week: "Monday",
+            date: "2022-11-07",
+            name: "Becky",
+            position: "Host",
+            location: "Main St",
+            start_time: "3:00PM",
+            end_time: "8:00PM",
+            total_hours: 5
         }
+
+        // get values from useState vars into a JSON
+        // TODO/NOTE: below code MUST be in snake case, convert later
+        // const dataToSend = {
+        //     dayOfWeek: dayOfWeek,
+        //     date: date.toISOString().substring(0,10), // These functions trim just the date part of the date object in ISO8601 format, e.g. "2022-11-13"
+        //     name: name,
+        //     position: position,
+        //     location: location,
+        //     startTime: startTime,
+        //     endTime: endTime,
+        //     totalHours: totalHours
+        // }
 
         // send the data via POST
         fetch("http://localhost:8000/schedule/add/", {
@@ -171,7 +184,7 @@ function AddSchedule() {
 
             {/* <button className="border" onClick={(e) => validateTotalHoursTest()}>TESTER</button> */}
 
-            <h1 className="flex justify-center text-5xl mb-10 mt-5">Da Form</h1>
+            <h1 className="flex justify-center text-5xl mb-10 mt-5">Add Shift</h1>
 
             <div className="w-full bg-gradient-to-r from-cyan-500 to-blue-500">
                 <form className="mx-60 mt-10 pb-40">
