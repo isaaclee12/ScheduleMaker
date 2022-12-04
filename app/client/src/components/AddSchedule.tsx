@@ -123,29 +123,29 @@ function AddSchedule() {
         }
 
         // TODO: Debug values, comment out when not testing API
-        const dataToSend = {
-            day_of_week: "Monday",
-            date: "2022-11-07",
-            name: "Becky",
-            position: "Host",
-            location: "Main St",
-            start_time: "3:00PM",
-            end_time: "8:00PM",
-            total_hours: 5
-        }
+        // const dataToSend = {
+        //     day_of_week: "Monday",
+        //     date: "2022-11-07",
+        //     name: "Becky",
+        //     position: "Host",
+        //     location: "Main St",
+        //     start_time: "3:00PM",
+        //     end_time: "8:00PM",
+        //     total_hours: 5
+        // }
 
         // get values from useState vars into a JSON
         // TODO/NOTE: below code MUST be in snake case, convert later
-        // const dataToSend = {
-        //     dayOfWeek: dayOfWeek,
-        //     date: date.toISOString().substring(0,10), // These functions trim just the date part of the date object in ISO8601 format, e.g. "2022-11-13"
-        //     name: name,
-        //     position: position,
-        //     location: location,
-        //     startTime: startTime,
-        //     endTime: endTime,
-        //     totalHours: totalHours
-        // }
+        const dataToSend = {
+            day_of_week: dayOfWeek,
+            date: date.toISOString().substring(0,10), // These functions trim just the date part of the date object in ISO8601 format, e.g. "2022-11-13"
+            name: name,
+            position: position,
+            location: location,
+            start_time: startTime,
+            end_time: endTime,
+            total_hours: totalHours
+        }
 
         // send the data via POST
         fetch("http://localhost:8000/schedule/add/", {
@@ -163,17 +163,9 @@ function AddSchedule() {
         })
     }
 
-    const handleStartTimeChange = (time: string) => {
-        setStartTime(time);
+    useEffect(() => {
         calculateTotalHours();
-    }
-
-    const handleEndTimeChange = (time: string) => {
-        setEndTime(time);
-        calculateTotalHours();
-    }
-
-
+    }, [startTime, endTime])
 
     // STYLING
     const [inputStyle, setInputStyle] = useState("form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center")
@@ -191,8 +183,16 @@ function AddSchedule() {
                     <br/>
                     <label className="">
                         Day Of Week:
-                        {/*{inputStyle}*/}
-                        <input type="text" className={inputStyle} value="Monday" onChange={(e) => setDayOfWeek(e.target.value)}/>
+                        <select className={inputStyle} onChange={(e) => setDayOfWeek(e.target.value)}>
+                            <option value="">Select A Day</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>   
                     </label>     
 
                     <br/>
@@ -206,15 +206,7 @@ function AddSchedule() {
                     <br/>
                     <label>
                         name:
-                        <select className={inputStyle} onChange={(e) => setDayOfWeek(e.target.value)}>
-                            <option value="Monday">Monday</option>
-                            <option value="Tuesday">Tuesday</option>
-                            <option value="Wednesday">Wednesday</option>
-                            <option value="Thursday">Thursday</option>
-                            <option value="Friday">Friday</option>
-                            <option value="Saturday">Saturday</option>
-                            <option value="Sunday">Sunday</option>
-                        </select>                    
+                        <input type="text" className={inputStyle} onChange={(e) => setName(e.target.value)}/>
                     </label>
                     
                     <br/>
@@ -234,8 +226,9 @@ function AddSchedule() {
                         startTime:
                         {/* <input type="text" className={inputStyle} onChange={(e) => setStartTime(e.target.value)}/> */}
                         <div id="selectStartTime">
-                            <select className={inputStyle} name="startTimeHour" id="startTimeHour" 
-                            onChange={(e) => handleStartTimeChange(e.target.value)}> {/*set the time AND calculate total hours*/}
+                            <select className={inputStyle} name="startTimeHour" id="startTimeHour"
+                            onChange={(e) => setStartTime(e.target.value)}> {/*set the time AND calculate total hours*/}
+                                <option value="">Select Start Time</option>
                                 <option value="12:00AM">12:00AM</option>
                                 <option value="1:00AM">1:00AM</option>
                                 <option value="2:00AM">2:00AM</option>
@@ -270,7 +263,8 @@ function AddSchedule() {
                         {/* <input type="text" className={inputStyle} onChange={(e) => setEndTime(e.target.value)}/> */}
                         <div id="selectEndTime">
                             <select className={inputStyle} name="endTimeHour" id="endTimeHour" 
-                            onChange={(e) => handleEndTimeChange(e.target.value)}> {/*set the time AND calculate total hours*/}
+                            onChange={(e) => setEndTime(e.target.value)}> {/*set the time AND calculate total hours*/}
+                                <option value="">Select End Time</option>
                                 <option value="12:00AM">12:00AM</option>
                                 <option value="1:00AM">1:00AM</option>
                                 <option value="2:00AM">2:00AM</option>
@@ -301,7 +295,7 @@ function AddSchedule() {
                     
                     <br/>
                     <label>
-                        totalHours: {}
+                        totalHours: {totalHours}
                     </label>
 
                     <button type="submit" onClick={handleSubmit} className={inputStyle}>SUBMIT</button>

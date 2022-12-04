@@ -25,7 +25,12 @@ function DeleteSchedule() {
             .then(data => {
                 console.log(data);
             })
-        );
+        )
+        .catch((error) => {
+            console.error(error);
+        })
+        // refresh page
+        window.location.reload();
     }
 
     useEffect(() => {
