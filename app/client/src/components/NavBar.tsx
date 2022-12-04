@@ -4,9 +4,7 @@ function NavBar() {
           <a className="ml-6 text-xl text-black" href="/">ScheduleMaker</a>
           <a href="/" className="ml-6 text-gray-500 hover:text-gray-600 focus:text-gray-600">View Schedule</a>
           <a href="/add" className="ml-6 text-gray-500 hover:text-gray-600 focus:text-gray-600">Add Shift</a>
-          {/* <a href="/RESUME" className="ml-6 text-gray-500 hover:text-gray-600 focus:text-gray-600">Resume</a>
-          <a href="/projects" className="ml-6 text-gray-500 hover:text-gray-600 focus:text-gray-600">Project List</a>
-          <a href="/contact" className="ml-6 text-gray-500 hover:text-gray-600 focus:text-gray-600">Contact</a>         */}
+          <a href="/delete" className="ml-6 text-gray-500 hover:text-gray-600 focus:text-gray-600">Delete Shift</a>
       </nav>
     )
 }

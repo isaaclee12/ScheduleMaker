@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.parsers import JSONParser 
 from rest_framework.response import Response
 
@@ -34,12 +34,7 @@ class AddScheduleViewSet(viewsets.ModelViewSet):
             print("Success")
             return Response("Success")
 
-        return Response("Failure")
-
-
-
-
-        
+        return Response("Failure")        
 
         """
         validate the data for the row
@@ -56,6 +51,19 @@ class AddScheduleViewSet(viewsets.ModelViewSet):
 
         # get body from the request
         return Response(request.META.get('body'))
+
+class DeleteScheduleViewSet(viewsets.ModelViewSet):
+    queryset = Shifts.objects.all()
+
+    http_method_names = ['delete']
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+        return Response("test")
         
 class ShiftsViewSet(viewsets.ModelViewSet):
 

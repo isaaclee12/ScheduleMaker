@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.deleteButton {
+    color: #ff2525;
+}
+
+.deleteButton:hover {
+    color: darkred;
+}
+
