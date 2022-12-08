@@ -148,7 +148,7 @@ function AddSchedule() {
         }
 
         // send the data via POST
-        fetch("http://localhost:8000/schedule/add/", {
+        fetch("http://localhost:8000/schedule/shifts", {
             method: "POST",
             mode: 'cors',
             // set the body of this request to that JSON we just made
@@ -199,6 +199,7 @@ function AddSchedule() {
                     <label>
                         date:
                         <div className={inputStyle}>
+                            {/* Note: currently, the datepicker defaults to today no matter what */}
                             <DatePicker selected={date} value="11/07/2022" onChange={(d: Date) => setDate(d)} />
                         </div>       
                     </label>

@@ -30,7 +30,26 @@ Clone the repository, open a command line instance within the folder:
 
 ---
 
-TODO: Add a section on how to do the django migrations
+## TODO: 
+
+- New Features:
+  - Add "Update shifts" screen to complete CRUD functionality
+  - Be able to set employees, positions, and locations in another database
+  - Refactor the code to increase efficiency + have better code patterns
+  - Add tests for all fields and such
+
+- Fix bugs:
+  - DatePicker and Fontawesome symbols appearing over NavBar
+  - Django won't update databse even when successfully adding rows. idk why
+
+- Aesthetics:
+  - Mobile responsiveness
+  - Better CSS please!
+
+- Document the whole thing down to the last line, for your own reference later when you make another CRUD app
+- Add README a section on how to do the django migrations
+- Containerize the whole thing in Docker
+- Deploy on Azure
 
 ## About the Data:
 

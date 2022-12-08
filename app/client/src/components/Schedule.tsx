@@ -22,7 +22,7 @@ function Schedule() {
         function fetchData(endpointName: string): any {
 
         // add endpoint to string
-        let endpoint = "http://localhost:8000/schedule/" + endpointName +  "/";
+        let endpoint = "http://localhost:8000/schedule/shifts" + endpointName +  "/";
 
         fetch(endpoint, {
             method: "GET",

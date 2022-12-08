@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views.decorators.cache import cache_control, never_cache
+from django.utils.decorators import method_decorator
 
 from rest_framework import viewsets, status
 from rest_framework.parsers import JSONParser 
@@ -10,14 +12,34 @@ from .serializers import ShiftsSerializer
 from django.db import connection
 
 # Viewset for taking in form data and adding it to the MySQL DB
-class AddScheduleViewSet(viewsets.ModelViewSet):
+       
+class ShiftsViewSet(viewsets.ModelViewSet):
 
+    # Query all entries from DB
     queryset = Shifts.objects.all()
 
-    http_method_names = ['post']
+    serializer = ShiftsSerializer(queryset, many=True)
 
+    # Below code: on get request, return the queryWeek var
+    http_method_names = ['get', 'post', 'delete']
+
+    def list(self, request):
+        # Return to front end
+        return Response(self.serializer.data)
+
+    @method_decorator(never_cache) 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        # filter out the row with the same id
+        # self.queryset.filter(id=instance.id).delete()
+        # instance.delete()
+        # print(s.data)
+        self.perform_destroy(instance)
+        # .refresh_from_db() # Refresh model from sql database
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
+    @cache_control(no_cache=True) 
     def create(self, request):
-
         data_to_add = JSONParser().parse(request)
         serializer = ShiftsSerializer(data=data_to_add)
         # serializer = ShiftsSerializer(data=request.data)
@@ -35,50 +57,6 @@ class AddScheduleViewSet(viewsets.ModelViewSet):
             return Response("Success")
 
         return Response("Failure")        
-
-        """
-        validate the data for the row
-        with several sequential independent "if" statements
-        if invalid at any point
-        return response "error: ..."
-
-        as a non-if case at the bottom
-        pass it to the SQL
-        return Response successfully submitted form data
-
-        and later, have the responses print on screen
-        """
-
-        # get body from the request
-        return Response(request.META.get('body'))
-
-class DeleteScheduleViewSet(viewsets.ModelViewSet):
-    queryset = Shifts.objects.all()
-
-    http_method_names = ['delete']
-
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        self.perform_destroy(instance)
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-        return Response("test")
-        
-class ShiftsViewSet(viewsets.ModelViewSet):
-
-    # Query all entries from DB
-    queryset = Shifts.objects.all()
-
-    serializer = ShiftsSerializer(queryset, many=True)
-
-    # Below code: on get request, return the queryWeek var
-    http_method_names = ['get']
-
-    def list(self, request):
-
-        # Return to front end
-        return Response(self.serializer.data)
 
 
 class DateViewSet(viewsets.ModelViewSet):
