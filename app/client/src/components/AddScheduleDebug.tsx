@@ -25,7 +25,7 @@ function AddScheduleDebug() {
         }
 
         // send the data via POST
-        fetch("http://localhost:8000/schedule/shifts", {
+        fetch("http://localhost:8000/schedule/shifts/", {
             method: "POST",
             mode: 'cors',
             // set the body of this request to that JSON we just made

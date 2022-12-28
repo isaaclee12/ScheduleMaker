@@ -8,8 +8,8 @@ router = routers.SimpleRouter()
 # router.register(r'update', UpdateScheduleViewSet, basename="update")
 
 router.register(r'shifts', ShiftsViewSet, basename="shifts")
-
 router.register(r'dates', DateViewSet, basename="dates")
+
 router.register(r'monday', MondayViewSet, basename="monday")
 router.register(r'tuesday', TuesdayViewSet, basename="tuesday")
 router.register(r'wednesday', WednesdayViewSet, basename="wednesday")
