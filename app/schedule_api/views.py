@@ -92,8 +92,6 @@ class MondayViewSet(viewsets.ModelViewSet):
 
         serializer = ShiftsSerializer(queryset, many=True)
 
-        print(serializer)
-
         # Return to front end
         return Response(serializer.data)
 

@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { UpdateScheduleContext } from "../contexts/UpdateScheduleContext";
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
-function UpdateSchedule() {
+function DeleteSchedule() {
+
+    // This hook gets our context variable
+    // const [updateScheduleContext] = useContext(UpdateScheduleContext)
 
     const [shifts, setShifts] = useState([])
     const [dates, setDates] = useState([])
@@ -15,22 +19,28 @@ function UpdateSchedule() {
     const [saturdayShifts, setSaturdayShifts] = useState([])
     const [sundayShifts, setSundayShifts] = useState([])
 
+
     const updateShift = (event: any, shift: any) => {
+
+        // Get the id of the shift as shift["id"]
+        // Send the id to UpdateScheduleForm.tsx***
+
+        // BELOW is the code to call the update...
         console.log(shift["id"]);
-        // fetch("http://localhost:8000/schedule/" + shift["id"], {
-        //     method: "PUT",
-        //     mode: 'cors',
-        // })
-        // .then(response => response.json()
-        //     .then(data => {
-        //         console.log(data);
-        //     })
-        // )
-        // .catch((error) => {
-        //     console.error(error);
-        // })
-        // // refresh page
-        // window.location.reload();
+        fetch("http://localhost:8000/schedule/shifts/" + shift["id"] + "/",  {
+            method: "PUT",
+            mode: 'cors',
+        })
+        .then(response => response.json()
+            .then(data => {
+                console.log(data);
+            })
+        )
+        .catch((error) => {
+            console.error(error);
+        })
+        // refresh page
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -39,10 +49,12 @@ function UpdateSchedule() {
     
     useEffect(() => {
 
+        console.log("CONTEXT:", context);
+
         function fetchData(endpointName: string): any {
 
         // add endpoint to string
-        let endpoint = "http://localhost:8000/schedule/shifts" + endpointName +  "/";
+        let endpoint = "http://localhost:8000/schedule/" + endpointName +  "/";
 
         fetch(endpoint, {
             method: "GET",
@@ -101,143 +113,146 @@ function UpdateSchedule() {
         fetchData(item)
         )
 
-
     }, [])
 
 
     return(
         <div className="grid place-items-center h-screen">
+            <UpdateScheduleContext.Provider value={/* TODO: INSERT STATE HERE */}>
 
-            <table className="w-1/2">
-                <thead className="border-b">
-                    <tr className="border-t">
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Monday</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Tuesday</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Wednesday</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Thursday</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Friday</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Saturday</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Sunday</th>
-                    </tr>
+                <table className="w-1/2">
+                    <thead className="border-b">
+                        <tr className="border-t">
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Monday</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Tuesday</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Wednesday</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Thursday</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Friday</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Saturday</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">Sunday</th>
+                        </tr>
+                        <tr>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[0]}</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[1]}</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[2]}</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[3]}</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[4]}</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[5]}</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[6]}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody className="text-center space-y-4">
                     <tr>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[0]}</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[1]}</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[2]}</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[3]}</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[4]}</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[5]}</th>
-                    <th scope="col" className="text-sm font-medium text-gray-900 px-3 py-4 text-center border-x">{dates[6]}</th>
+                        
+                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
+                        {mondayShifts.map((shift, index)=>
+                            <div key={index}>
+                            <br/>
+                            {/* Edit Button */}
+                            <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                            <p>
+                            {" " + shift['name']}</p>
+                            <p>{shift['position']}</p>
+                            <p>{shift['start_time'] + "-" + shift['end_time']}</p>
+                            <p>{" (" + shift['total_hours'] + " hours)"}</p>
+                            </div>
+                        )}
+                        </td>
+                        
+                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
+                        {tuesdayShifts.map((shift, index)=>
+                            <div key={index}>
+                            <br/>
+                            {/* Edit Button */}
+                            <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                            <p>{shift['name']}</p>
+                            <p>{shift['position']}</p>
+                            <p>{shift['start_time'] + "-" + shift['end_time']}</p>
+                            <p>{" (" + shift['total_hours'] + " hours)"}</p>
+                            </div>
+                        )}
+                        </td>
+                        
+                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
+                        {wednesdayShifts.map((shift, index)=>
+                            <div key={index}>
+                            <br/>
+                            {/* Edit Button */}
+                            <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                            <p>{shift['name']}</p>
+                            <p>{shift['position']}</p>
+                            <p>{shift['start_time'] + "-" + shift['end_time']}</p>
+                            <p>{" (" + shift['total_hours'] + " hours)"}</p>
+                            </div>
+                        )}
+                        </td>
+                        
+                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
+                        {thursdayShifts.map((shift, index)=>
+                            <div key={index}>
+                            <br/>
+                            {/* Edit Button */}
+                            <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                            <p>{shift['name']}</p>
+                            <p>{shift['position']}</p>
+                            <p>{shift['start_time'] + "-" + shift['end_time']}</p>
+                            <p>{" (" + shift['total_hours'] + " hours)"}</p>
+                            </div>
+                        )}
+                        </td>
+                        
+                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
+                        {fridayShifts.map((shift, index)=>
+                            <div key={index}>
+                            <br/>
+                            {/* Edit Button */}
+                            <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                            <p>{shift['name']}</p>
+                            <p>{shift['position']}</p>
+                            <p>{shift['start_time'] + "-" + shift['end_time']}</p>
+                            <p>{" (" + shift['total_hours'] + " hours)"}</p>
+                            </div>
+                        )}
+                        </td>
+                        
+                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
+                        {saturdayShifts.map((shift, index)=>
+                            <div key={index}>
+                            <br/>
+                            {/* Edit Button */}
+                            <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                            <p>{shift['name']}</p>
+                            <p>{shift['position']}</p>
+                            <p>{shift['start_time'] + "-" + shift['end_time']}</p>
+                            <p>{" (" + shift['total_hours'] + " hours)"}</p>
+                            </div>
+                        )}
+                        </td>
+                        
+                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
+                        {sundayShifts.map((shift, index)=>
+                            <div key={index}>
+                            <br/>
+                            {/* Edit Button */}
+                            <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                            <p>{shift['name']}</p>
+                            <p>{shift['position']}</p>
+                            <p>{shift['start_time'] + "-" + shift['end_time']}</p>
+                            <p>{" (" + shift['total_hours'] + " hours)"}</p>
+                            </div>
+                        )}
+                        </td>
+
                     </tr>
-                </thead>
 
-                <tbody className="text-center space-y-4">
-                <tr>
-                    
-                    <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                    {mondayShifts.map((shift, index)=>
-                        <div key={index}>
-                        <br/>
-                        {/* Delete Button */}
-                        <FontAwesomeIcon icon={faPenToSquare} beat className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
-                        <p>
-                        {" " + shift['name']}</p>
-                        <p>{shift['position']}</p>
-                        <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                        <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                        </div>
-                    )}
-                    </td>
-                    
-                    <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                    {tuesdayShifts.map((shift, index)=>
-                        <div key={index}>
-                        <br/>
-                        {/* Update Button */}
-                        <FontAwesomeIcon icon={faPenToSquare} beat className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
-                        <p>{shift['name']}</p>
-                        <p>{shift['position']}</p>
-                        <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                        <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                        </div>
-                    )}
-                    </td>
-                    
-                    <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                    {wednesdayShifts.map((shift, index)=>
-                        <div key={index}>
-                        <br/>
-                        {/* Delete Button */}
-                        <FontAwesomeIcon icon={faPenToSquare} beat className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
-                        <p>{shift['name']}</p>
-                        <p>{shift['position']}</p>
-                        <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                        <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                        </div>
-                    )}
-                    </td>
-                    
-                    <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                    {thursdayShifts.map((shift, index)=>
-                        <div key={index}>
-                        <br/>
-                        {/* Delete Button */}
-                        <FontAwesomeIcon icon={faPenToSquare} beat className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
-                        <p>{shift['name']}</p>
-                        <p>{shift['position']}</p>
-                        <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                        <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                        </div>
-                    )}
-                    </td>
-                    
-                    <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                    {fridayShifts.map((shift, index)=>
-                        <div key={index}>
-                        <br/>
-                        {/* Delete Button */}
-                        <FontAwesomeIcon icon={faPenToSquare} beat className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
-                        <p>{shift['name']}</p>
-                        <p>{shift['position']}</p>
-                        <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                        <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                        </div>
-                    )}
-                    </td>
-                    
-                    <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                    {saturdayShifts.map((shift, index)=>
-                        <div key={index}>
-                        <br/>
-                        {/* Delete Button */}
-                        <FontAwesomeIcon icon={faPenToSquare} beat className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
-                        <p>{shift['name']}</p>
-                        <p>{shift['position']}</p>
-                        <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                        <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                        </div>
-                    )}
-                    </td>
-                    
-                    <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                    {sundayShifts.map((shift, index)=>
-                        <div key={index}>
-                        <br/>
-                        {/* Delete Button */}
-                        <FontAwesomeIcon icon={faPenToSquare} beat className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
-                        <p>{shift['name']}</p>
-                        <p>{shift['position']}</p>
-                        <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                        <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                        </div>
-                    )}
-                    </td>
+                    </tbody>
+                </table>
 
-                </tr>
+            </UpdateScheduleContext.Provider>
 
-                </tbody>
-            </table>
         </div>
     )
 }
 
-export default UpdateSchedule;
+export default DeleteSchedule;
