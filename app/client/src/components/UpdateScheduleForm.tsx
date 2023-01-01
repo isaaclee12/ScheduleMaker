@@ -4,12 +4,14 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { start } from 'repl';
 import DateSelector from './DateSelector';
+import { parseISO, format } from 'date-fns'
 
 function UpdateScheduleForm() {
 
     // const [testDate, setTestDate] = useState(new Date());
 
     // TODO: Get date and time and put it into a ISO8601 Date() object, WAY easier.
+    const [shifts, setShifts] = useState([])
 
     const [dayOfWeek, setDayOfWeek] = useState("")
     const [date, setDate] = useState(new Date())
@@ -26,7 +28,7 @@ function UpdateScheduleForm() {
     // Fetch the data for it
     // And fill it in as the default values for each item via useState??? 
 
-
+/****** TODO: Add feature that deletes sessionStorage after submission or cancellation of the update ******/
     // calculate total hours based on start and end time
     const calculateTotalHours = () => {
         // convert strings as times to ints with values from 0 to 23 to represent 24 hour time
@@ -53,13 +55,12 @@ function UpdateScheduleForm() {
             endTimeValue += 12;
         }
 
-        // NOTE: This is where I see my error occuring
-        console.log(startTime, endTime)
+        // console.log(startTime, endTime) // DEBUG
 
         // calculate time between start and end times
         const total = endTimeValue - startTimeValue;
 
-        console.log("TOTAL HOURS:", total) //"start:", endTimeValue, "-", "end", startTimeValue, "=", total)
+        // console.log("TOTAL HOURS:", total) // DEBUG
 
         // if that value is negative, return 0.
         if (totalHours < 0) {
@@ -71,9 +72,55 @@ function UpdateScheduleForm() {
         setTotalHours(total);
     }
 
+    // When shifts consumes the data from the API, pass the data to the other states
     useEffect(() => {
-        console.log(date);
-    }, [date])
+        // console.log(shifts);
+        // if shifts AND sessionStorage has a value
+        if (shifts.length != 0 && sessionStorage.getItem("ShiftToUpdateID") != "") {
+            // DEBUG: test that we stored the id
+            console.log("Update Form Got Shift ID:", sessionStorage.getItem("ShiftToUpdateID"));
+
+            // .getItem returns a "string | null" type, so we wrap it in JSON.parse to force it to return a "string" only type
+            // We then subtract 1, because for some reason it just adds on 1
+            const idToFetchFrom: number = JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "") - 1;
+
+            // console.log("Shift To Insert Into Update Form:", shifts[idToFetchFrom]);
+
+            // console.log("Testing items:", shifts[idToFetchFrom]["day_of_week"]);
+
+            setDayOfWeek(shifts[idToFetchFrom]["day_of_week"])
+            setDate(parseISO(shifts[idToFetchFrom]["date"]))
+            setName(shifts[idToFetchFrom]["name"])
+            setPosition(shifts[idToFetchFrom]["position"])
+            setLocation(shifts[idToFetchFrom]["location"])
+            setStartTime(shifts[idToFetchFrom]["start_time"])
+            setEndTime(shifts[idToFetchFrom]["end_time"])
+            setTotalHours(shifts[idToFetchFrom]["total_hours"])
+        }
+    }, [shifts])
+
+    useEffect(() => {
+        // Get data
+
+        // add endpoint to string
+        let endpoint = "http://localhost:8000/schedule/shifts/";
+
+        fetch(endpoint, {
+            method: "GET",
+            mode: 'cors'
+        })
+        .then(response => response.json()
+            .then(data => {
+                // console.log("DATA:", data);
+                setShifts(data); 
+                // console.log("SHIFTS:", shifts);
+            })
+        )
+        .catch((err) => {
+            console.error(err);
+        })       
+        
+    }, [])
 
     const validateData = (): boolean => {
 
@@ -119,7 +166,7 @@ function UpdateScheduleForm() {
 
         // Validate that the end time is after the start time
         const dataIsValid = validateData();
-        console.log("Data Validity Status:",dataIsValid);
+        console.log("Data Validity Status:", dataIsValid);
 
         // return on failed validation
         if (!dataIsValid) {
@@ -140,9 +187,12 @@ function UpdateScheduleForm() {
             total_hours: totalHours
         }
 
-        // send the data via POST
+        // Test the changed data:
+        console.log(JSON.stringify(dataToSend));
+
+        // send the data via PUT
         fetch("http://localhost:8000/schedule/shifts/", {
-            method: "POST",
+            method: "PUT",
             mode: 'cors',
             // set the body of this request to that JSON we just made
             body: JSON.stringify(dataToSend)
@@ -150,10 +200,21 @@ function UpdateScheduleForm() {
         .then(response => response.json()
             .then(data => {
                 console.log(data);
+                // Clear the id from storage after successful update
+                sessionStorage.setItem("ShiftToUpdateID", "");
             }))
         .catch(err => {
             console.error(err);
-        })
+        }) 
+        
+        // refresh page
+        window.location.reload();
+
+        // Clear the value for the form
+        sessionStorage.setItem("ShiftToUpdateID", "");
+
+
+
     }
 
     useEffect(() => {
@@ -164,19 +225,19 @@ function UpdateScheduleForm() {
     const [inputStyle, setInputStyle] = useState("form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center")
 
     return(
-        <div className=" bg-gradient-to-r from-cyan-500 to-blue-500">
+        <div className=" bg-gradient-to-r from-green-300 to-green-500">
             <br/>
 
             {/* <button className="border" onClick={(e) => validateTotalHoursTest()}>TESTER</button> */}
 
             <h1 className="flex justify-center text-5xl mb-10 mt-5">Update Shift</h1>
 
-            <div className="w-full bg-gradient-to-r from-cyan-500 to-blue-500">
+            <div className="w-full bg-gradient-to-r from-green-300 to-green-500">
                 <form className="mx-60 mt-10 pb-40">
                     <br/>
                     <label className="">
                         Day Of Week:
-                        <select className={inputStyle} onChange={(e) => setDayOfWeek(e.target.value)}>
+                        <select className={inputStyle} onChange={(e) => setDayOfWeek(e.target.value)} value={dayOfWeek}>
                             <option value="">Select A Day</option>
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
@@ -192,27 +253,27 @@ function UpdateScheduleForm() {
                     <label>
                         date:
                         <div className={inputStyle}>
-                            {/* Note: currently, the datepicker defaults to today no matter what */}
-                            <DatePicker selected={date} value="11/07/2022" onChange={(d: Date) => setDate(d)} />
+                            {/* Default value = date from backend, formatted as MM/dd/yy */}
+                            <DatePicker selected={date} onChange={(d: Date) => setDate(d)} value={format(date, 'MM/dd/yyyy')}/>
                         </div>       
                     </label>
 
                     <br/>
                     <label>
                         name:
-                        <input type="text" className={inputStyle} onChange={(e) => setName(e.target.value)}/>
+                        <input type="text" className={inputStyle} onChange={(e) => setName(e.target.value)} value={name}/>
                     </label>
                     
                     <br/>
                     <label>
                         position:
-                        <input type="text" className={inputStyle} onChange={(e) => setPosition(e.target.value)}/>
+                        <input type="text" className={inputStyle} onChange={(e) => setPosition(e.target.value)} value={position}/>
                     </label>
                     
                     <br/>
                     <label>
                         location:
-                        <input type="text" className={inputStyle} onChange={(e) => setLocation(e.target.value)}/>
+                        <input type="text" className={inputStyle} onChange={(e) => setLocation(e.target.value)} value={location}/>
                     </label>
                     
                     <br/>
@@ -221,7 +282,7 @@ function UpdateScheduleForm() {
                         {/* <input type="text" className={inputStyle} onChange={(e) => setStartTime(e.target.value)}/> */}
                         <div id="selectStartTime">
                             <select className={inputStyle} name="startTimeHour" id="startTimeHour"
-                            onChange={(e) => setStartTime(e.target.value)}> {/*set the time AND calculate total hours*/}
+                            onChange={(e) => setStartTime(e.target.value)} value={startTime}>
                                 <option value="">Select Start Time</option>
                                 <option value="12:00AM">12:00AM</option>
                                 <option value="1:00AM">1:00AM</option>
@@ -257,7 +318,7 @@ function UpdateScheduleForm() {
                         {/* <input type="text" className={inputStyle} onChange={(e) => setEndTime(e.target.value)}/> */}
                         <div id="selectEndTime">
                             <select className={inputStyle} name="endTimeHour" id="endTimeHour" 
-                            onChange={(e) => setEndTime(e.target.value)}> {/*set the time AND calculate total hours*/}
+                            onChange={(e) => setEndTime(e.target.value)} value={endTime}> {/*set the time AND calculate total hours*/}
                                 <option value="">Select End Time</option>
                                 <option value="12:00AM">12:00AM</option>
                                 <option value="1:00AM">1:00AM</option>

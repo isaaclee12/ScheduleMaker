@@ -34,9 +34,6 @@ Clone the repository, open a command line instance within the folder:
 
 - New Features:
   - Add "Update shifts" screen to complete CRUD functionality
-    - Design the refactor on paper
-    - Map in how contexts and providers will be implemented
-    - ALTERNATIVELY, store things in local storage?
   - Be able to set employees, positions, and locations in another database
   - Refactor the code to increase efficiency + have better code patterns
   - Add tests for all fields and such

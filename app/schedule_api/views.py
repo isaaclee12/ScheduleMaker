@@ -18,30 +18,24 @@ class ShiftsViewSet(viewsets.ModelViewSet):
     # Query all entries from DB
     queryset = Shifts.objects.all()
 
-    serializer = ShiftsSerializer(queryset, many=True)
+    serializer_class = ShiftsSerializer(queryset, many=True)
 
     # Below code: on get request, return the queryWeek var
-    http_method_names = ['get', 'post', 'delete']
+    http_method_names = ['get', 'post', 'put', 'delete']
 
+    # GET
     def list(self, request):
         # Return to front end
         return Response(self.serializer.data)
 
+    # DELETE
     @method_decorator(never_cache) 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-
-        # filter out the row with the same id
-        # self.queryset.filter(id=instance.id).delete()
-        # instance.delete()
-        # print(s.data)
-
         self.perform_destroy(instance)
-
-        # .refresh_from_db() # Refresh model from sql database
-
         return Response(status=status.HTTP_204_NO_CONTENT)
         
+    # POST
     # @cache_control(no_cache=True) 
     def create(self, request):
         data_to_add = JSONParser().parse(request)
@@ -62,6 +56,33 @@ class ShiftsViewSet(viewsets.ModelViewSet):
 
         return Response("Failure")        
 
+    # PUT
+    def update(self, request):
+
+        # Consume the request data
+        instance = self.get_object()
+        instance.id = request.data.get("id")
+        instance.day_of_week = request.data.get("day_of_week")
+        instance.date = request.data.get("date")
+        instance.name = request.data.get("name")
+        instance.position = request.data.get("position")
+        instance.location = request.data.get("location")
+        instance.start_time = request.data.get("start_time")
+        instance.end_time = request.data.get("end_time")
+        instance.total_hours = request.data.get("total_hours")
+        instance.save()
+
+        # Serialize that data into python native 
+        serializer = self.get_serializer(instance)
+
+        # Check it for validity
+        serializer.is_valid(raise_exception=True)
+
+        # Update the database
+        self.perform_update(serializer)
+
+        # Return response with the data added
+        return Response("Successfully added data:" + serializer.data)
 
 class DateViewSet(viewsets.ModelViewSet):
 
