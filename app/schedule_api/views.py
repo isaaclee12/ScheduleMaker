@@ -11,8 +11,6 @@ from .serializers import ShiftsSerializer
 
 from django.db import connection
 
-import json
-
 # Viewset for taking in form data and adding it to the MySQL DB
        
 class ShiftsViewSet(viewsets.ModelViewSet):
@@ -23,7 +21,7 @@ class ShiftsViewSet(viewsets.ModelViewSet):
     serializer_class = ShiftsSerializer(queryset, many=True)
 
     # Below code: on get request, return the queryWeek var
-    http_method_names = ['get', 'post', 'put', 'delete']
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     # GET
     def list(self, request):
@@ -65,29 +63,44 @@ class ShiftsViewSet(viewsets.ModelViewSet):
         return Response("Failure")        
 
     # PUT
-    def update(self, request, *args, **kwargs):
+    def partial_update(self, request, pk):
 
-        # get the instance
-        instance = self.get_object()
-        
+            
         # Consume the request data
         data_to_add = JSONParser().parse(request)
+        # print("DATA TO ADD:", data_to_add)
+        print(data_to_add["id"])
+
+"""         try:
+            # Check if the todo item the user wants to update exists
+            itemToUpdate = Shifts.objects.filter(id__exact=data_to_add["id"])
+
+        except Shifts.DoesNotExist:
+            # If the todo item does not exist, return an error response
+            return Response({'errors': 'This Shifts item does not exist.'}, status=400)
+         """
+
         serializer = ShiftsSerializer(data=data_to_add)
 
-        print("got data:", instance)
-        print("got data:", serializer.initial_data)
+        print("ITEM TO UPDATE'S DATA:", serializer.initial_data)
 
         # Check it for validity
         if serializer.is_valid(): #raise_exception=True)
 
+            # Update items in itemToUpdate
+
             # Update the database
-            self.perform_update(instance)
+            returnItem = serializer.save()
+            print("AADASDOSAKDSAOJDSOK")
+
+            returnSerializer = ShiftsSerializer(returnItem);
 
             # Return response with the data added
-            return Response("Successfully added data")
+            return Response(returnSerializer, status=200)
 
         # Fail message
         return Response("\nFailed to add data")
+
 class DateViewSet(viewsets.ModelViewSet):
 
     # Query all entries from DB
