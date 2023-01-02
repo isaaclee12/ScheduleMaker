@@ -11,6 +11,22 @@ from .serializers import ShiftsSerializer
 
 from django.db import connection
 
+
+# Viewset for getting just one row with a specific id
+class ShiftGetByID(viewsets.ModelViewSet):
+
+    http_method_names = ['get']
+
+    def list(self, request):
+        
+        queryset = Shifts.objects.all()
+        
+        serializer = ShiftsSerializer(queryset, many=True)
+        
+        return Response(serializer.data)
+#
+
+
 # Viewset for taking in form data and adding it to the MySQL DB
        
 class ShiftsViewSet(viewsets.ModelViewSet):
@@ -31,8 +47,6 @@ class ShiftsViewSet(viewsets.ModelViewSet):
         queryset = Shifts.objects.all()
 
         serializer = ShiftsSerializer(queryset, many=True)
-
-        print("GETTING: ", serializer.data)
 
         # Return to front end
         return Response(serializer.data)

@@ -24,12 +24,109 @@ function UpdateScheduleForm() {
 
     const [totalHours, setTotalHours] = useState(0)
 
-    // ***Then somehow recieve that shift("id") here
-    // Fetch the data for it
-    // And fill it in as the default values for each item via useState??? 
+    const [idToFetchFrom, setIdToFetchFrom] = useState(0)
+     
+    useEffect(() => {
+        
+         /*    // if shifts AND sessionStorage has a value
+        if (data.length !== 0 && sessionStorage.getItem("ShiftToUpdateID") !== "") {
 
-/****** TODO: Add feature that deletes sessionStorage after submission or cancellation of the update ******/
-    // calculate total hours based on start and end time
+            // Get data where id = id to fetch from
+            // Go through the data
+            console.log(data[idToFetchFrom]);
+
+            setDayOfWeek(data[idToFetchFrom]["day_of_week"])
+            setDate(parseISO(data[idToFetchFrom]["date"]))
+            setName(data[idToFetchFrom]["name"])
+            setPosition(data[idToFetchFrom]["position"])
+            setLocation(data[idToFetchFrom]["location"])
+            setStartTime(data[idToFetchFrom]["start_time"])
+            setEndTime(data[idToFetchFrom]["end_time"])
+            setTotalHours(data[idToFetchFrom]["total_hours"])
+        } */
+
+        
+        // Get the id
+        // DEBUG: test that we stored the id
+        console.log("Update Form Got Shift ID:", sessionStorage.getItem("ShiftToUpdateID"));
+
+        // .getItem returns a "string | null" type, so we wrap it in JSON.parse to force it to return a "string" only type
+        setIdToFetchFrom(JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || ""));
+
+
+    }, [])
+
+
+    // Only runs once the update to idToFetchFrom has occured in the initial blank-array useEffect
+    useEffect(() => {
+
+        console.log("ID to fetch from:", idToFetchFrom);
+
+        // const dataToRequest = {
+        //     "id": idToFetchFrom
+        // }
+
+        // add endpoint to string
+        let endpoint = "http://localhost:8000/schedule/shifts-get-by-id/" + idToFetchFrom + "/";
+
+        fetch(endpoint, {
+            method: "GET",
+            mode: 'cors',
+            // body: JSON.stringify(dataToRequest)
+        })
+        .then(response => response.json()
+            .then(data => {
+                console.log("DATA:", data);
+                setShifts(data); 
+            })
+        )
+        .catch((err) => {
+            console.error(err);
+        })       
+
+    }, [idToFetchFrom])
+
+    // useEffect call to only calculate totalHours when start/end time are modified
+    useEffect(() => {
+        calculateTotalHours();
+    }, [startTime, endTime])
+
+
+    const validateData = (): boolean => {
+
+        // Validate the fields:
+        // dayOfWeek: item is in Monday thru Sunday
+        
+        // date: item is in ISO format
+        // date.toISOString().substring(0,10)
+
+        // name: Is string, not longer than 100 characters
+        
+        // position: Is string, not longer than 100 characters
+        // location: Is string, not longer than 100 characters
+        // startTime: Is string, not longer than 7 characters
+        // endTime: Is string, not longer than 7 characters
+        // totalHours: is a small positive integer (min 0, max 32767)
+
+        /* TODO: Move this to App.test.tsx once in testing phase
+        let temp_start_hour = startTime_hour;
+        let temp_end_hour = endTime_hour;
+
+        if (temp_start_hour === 12 && startTime_AMPM === "AM") {temp_start_hour = 0}
+        if (temp_end_hour === 12 && endTime_AMPM === "AM") {temp_end_hour = 0}
+
+        if (temp_start_hour !== 12 && startTime_AMPM === "PM") {temp_start_hour += 12}
+        if (temp_end_hour !== 12 && endTime_AMPM === "PM") {temp_end_hour += 12}
+
+        console.log("start: "+temp_start_hour+":"+startTime_minute+startTime_AMPM+" end: "+temp_end_hour+":"+endTime_minute+endTime_AMPM)
+
+        if (temp_start_hour > temp_end_hour) {return false}
+        if (temp_start_hour === temp_end_hour && startTime_minute >= endTime_minute) {return false}
+        */
+        return true;
+    }
+
+     // calculate total hours based on start and end time
     const calculateTotalHours = () => {
         // convert strings as times to ints with values from 0 to 23 to represent 24 hour time
         // where 0 = 12am and 23 = 11pm
@@ -70,97 +167,6 @@ function UpdateScheduleForm() {
 
         // else, return the value  
         setTotalHours(total);
-    }
-
-    // When shifts consumes the data from the API, pass the data to the other states
-    // useEffect(() => {
- 
-    //     }
-    // }, [shifts])
-
-    useEffect(() => {
-        // Get data
-
-        // add endpoint to string
-        let endpoint = "http://localhost:8000/schedule/shifts/";
-
-        fetch(endpoint, {
-            method: "GET",
-            mode: 'cors'
-        })
-        .then(response => response.json()
-            .then(data => {
-                console.log("DATA:", data);
-                setShifts(data); 
-
-                // if shifts AND sessionStorage has a value
-                if (data.length !== 0 && sessionStorage.getItem("ShiftToUpdateID") !== "") {
-                    // DEBUG: test that we stored the id
-                    console.log("Update Form Got Shift ID:", sessionStorage.getItem("ShiftToUpdateID"));
-
-                    // .getItem returns a "string | null" type, so we wrap it in JSON.parse to force it to return a "string" only type
-                    // We then subtract 1, because for some reason it just adds on 1
-                    const idToFetchFrom: number = JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "");
-
-                    console.log("ID to fetch from:", idToFetchFrom);
-
-                    // Get data where id = id to fetch from
-                    // Go through the data
-                    console.log(data[idToFetchFrom]);
-
-                    setDayOfWeek(data[idToFetchFrom]["day_of_week"])
-                    setDate(parseISO(data[idToFetchFrom]["date"]))
-                    setName(data[idToFetchFrom]["name"])
-                    setPosition(data[idToFetchFrom]["position"])
-                    setLocation(data[idToFetchFrom]["location"])
-                    setStartTime(data[idToFetchFrom]["start_time"])
-                    setEndTime(data[idToFetchFrom]["end_time"])
-                    setTotalHours(data[idToFetchFrom]["total_hours"])
-                }
-            })
-        )
-        .catch((err) => {
-            console.error(err);
-        })       
-
-    }, [])
-
-    const validateData = (): boolean => {
-
-        // Validate the fields:
-        // dayOfWeek: item is in Monday thru Sunday
-        
-        // date: item is in ISO format
-        // date.toISOString().substring(0,10)
-
-        // name: Is string, not longer than 100 characters
-        
-        // position: Is string, not longer than 100 characters
-        // location: Is string, not longer than 100 characters
-        // startTime: Is string, not longer than 7 characters
-        // endTime: Is string, not longer than 7 characters
-        // totalHours: is a small positive integer (min 0, max 32767)
-
-        /* TODO: Move this to App.test.tsx once in testing phase
-        let temp_start_hour = startTime_hour;
-        let temp_end_hour = endTime_hour;
-
-        if (temp_start_hour === 12 && startTime_AMPM === "AM") {temp_start_hour = 0}
-        if (temp_end_hour === 12 && endTime_AMPM === "AM") {temp_end_hour = 0}
-
-        if (temp_start_hour !== 12 && startTime_AMPM === "PM") {temp_start_hour += 12}
-        if (temp_end_hour !== 12 && endTime_AMPM === "PM") {temp_end_hour += 12}
-
-        console.log("start: "+temp_start_hour+":"+startTime_minute+startTime_AMPM+" end: "+temp_end_hour+":"+endTime_minute+endTime_AMPM)
-
-        if (temp_start_hour > temp_end_hour) {return false}
-        if (temp_start_hour === temp_end_hour && startTime_minute >= endTime_minute) {return false}
-        */
-        return true;
-    }
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string) => {
-        console.log(e.target.value);
     }
 
     const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
@@ -222,14 +228,7 @@ function UpdateScheduleForm() {
         // Clear the value for the form
         // TODO: UNCOMMENT THIS FOR PRODUCTION
         sessionStorage.setItem("ShiftToUpdateID", "");
-
-
-
     }
-
-    useEffect(() => {
-        calculateTotalHours();
-    }, [startTime, endTime])
 
     // STYLING
     const [inputStyle, setInputStyle] = useState("form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center")
