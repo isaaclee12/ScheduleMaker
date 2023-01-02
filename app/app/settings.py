@@ -24,7 +24,7 @@ with open(os.path.join(BASE_DIR, '../../secret_key_small_business_schedule_softw
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = []
 
