@@ -7,7 +7,7 @@
         "start-server": "cd server && python manage.py runserver",
         "build": "npm --prefix client run build",
         "start-client": "npm --prefix client start",
-        "postinstall": "npm run build"
+        "postinstall": "npm --prefix client run build"
     },
     "repository": {
         "type": "git",
