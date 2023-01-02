@@ -1,0 +1,37 @@
+{
+    "name": "ScheduleMaker",
+    "version": "0.1.0",
+    "description": "A webtool designed to help your small business keep track of your employee's schedules!",
+    "scripts": {
+        "start": "cd server && node server.js",
+        "dev": "npm --prefix server run dev",
+        "build": "npm --prefix client run build",
+        "dev-concurrent": "concurrently \"npm:start-client\" \"npm:dev\"",
+        "start-client": "npm --prefix client start",
+        "postinstall": "npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/isaaclee12/ScheduleMaker.git"
+    },
+    "author": "Isaac Lee",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/isaaclee12/ScheduleMaker/issues"
+    },
+    "homepage": "https://github.com/isaaclee12/ScheduleMaker#readme",
+    "dependencies": {},
+    "devDependencies": {},
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
