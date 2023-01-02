@@ -100,12 +100,12 @@ function UpdateScheduleForm() {
 
                     // .getItem returns a "string | null" type, so we wrap it in JSON.parse to force it to return a "string" only type
                     // We then subtract 1, because for some reason it just adds on 1
-                    const idToFetchFrom: number = JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "") - 1;
+                    const idToFetchFrom: number = JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "");
 
-                    // console.log("Shift To Insert Into Update Form:", data[idToFetchFrom]);
+                    console.log("ID to fetch from:", idToFetchFrom);
 
-                    // console.log("Testing items:", data[idToFetchFrom]["day_of_week"]);
-
+                    // Get data where id = id to fetch from
+                    // Go through the data
                     console.log(data[idToFetchFrom]);
 
                     setDayOfWeek(data[idToFetchFrom]["day_of_week"])
@@ -177,9 +177,12 @@ function UpdateScheduleForm() {
             // TODO: Implement bool that sets an error saying "hi your times are wrong"
         }
 
+        const idToUse = JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "") - 1;
+
         // get values from useState vars into a JSON
         // TODO/NOTE: below code MUST be in snake case, convert later
         const dataToSend = {
+            id: idToUse,
             day_of_week: dayOfWeek,
             date: date.toISOString().substring(0,10), // These functions trim just the date part of the date object in ISO8601 format, e.g. "2022-11-13"
             name: name,
@@ -193,12 +196,12 @@ function UpdateScheduleForm() {
         // Test the changed data:
         console.log(JSON.stringify(dataToSend));
 
-        const shift = shifts[JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "") - 1];
+        const shift = shifts[idToUse];
         console.log("DATA SENT IN:", shift);
         
         // send the data via PUT
         fetch("http://localhost:8000/schedule/shifts/" + shift["id"] + "/", {
-            method: "PUT",
+            method: "PATCH",
             mode: 'cors',
             // set the body of this request to that JSON we just made
             body: JSON.stringify(dataToSend)

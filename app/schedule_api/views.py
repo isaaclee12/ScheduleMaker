@@ -24,12 +24,15 @@ class ShiftsViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     # GET
+    @method_decorator(never_cache) 
     def list(self, request):
 
         # Get the data from the backend, serialize it, and return it as JSON
         queryset = Shifts.objects.all()
 
         serializer = ShiftsSerializer(queryset, many=True)
+
+        print("GETTING: ", serializer.data)
 
         # Return to front end
         return Response(serializer.data)
@@ -65,41 +68,30 @@ class ShiftsViewSet(viewsets.ModelViewSet):
     # PUT
     def partial_update(self, request, pk):
 
-            
-        # Consume the request data
+        # Consume data from API request
         data_to_add = JSONParser().parse(request)
-        # print("DATA TO ADD:", data_to_add)
-        print(data_to_add["id"])
 
-"""         try:
-            # Check if the todo item the user wants to update exists
-            itemToUpdate = Shifts.objects.filter(id__exact=data_to_add["id"])
+        # print("PK IN:", int(pk))
+        # print("DATA IN:", data_to_add)
 
-        except Shifts.DoesNotExist:
-            # If the todo item does not exist, return an error response
-            return Response({'errors': 'This Shifts item does not exist.'}, status=400)
-         """
+        # Get data at that id
+        # Error is here: somehow, this query set doesn't grab the model's fields OTHER than pk.
+        # shift_to_update = Shifts.objects.filter(id__exact=int(pk)).values()
+        shift_to_update = self.get_object()
+        
+        # DEBUG CODE
+        stemp = ShiftsSerializer(shift_to_update)
+        # print("Updating shift:", stemp.data)
 
-        serializer = ShiftsSerializer(data=data_to_add)
 
-        print("ITEM TO UPDATE'S DATA:", serializer.initial_data)
+        serializer = ShiftsSerializer(shift_to_update, data=data_to_add, partial=True) # set partial=True to update a data partially
+        if serializer.is_valid():
+            updated_data = serializer.save()
+            updated_data = ShiftsSerializer(updated_data)
+            # print("UPDATED DATA:", updated_data)
+            return Response(updated_data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        # Check it for validity
-        if serializer.is_valid(): #raise_exception=True)
-
-            # Update items in itemToUpdate
-
-            # Update the database
-            returnItem = serializer.save()
-            print("AADASDOSAKDSAOJDSOK")
-
-            returnSerializer = ShiftsSerializer(returnItem);
-
-            # Return response with the data added
-            return Response(returnSerializer, status=200)
-
-        # Fail message
-        return Response("\nFailed to add data")
 
 class DateViewSet(viewsets.ModelViewSet):
 
