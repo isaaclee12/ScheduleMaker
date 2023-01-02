@@ -32,10 +32,12 @@ Clone the repository, open a command line instance within the folder:
 
 ## TODO: 
 
-- Bugs to fix:
-  - DatePicker and Fontawesome symbols appearing over NavBar
 
 - PHASE 1: CRUD App Completion
+  - Bugs to fix:
+    - TODO: Delete function not deleting certain items
+    - TODO: DatePicker and Fontawesome symbols appearing over NavBar
+
   - Upload basic CRUD App to Cyclic
 
 - PHASE 2: Dates + Glow Up
