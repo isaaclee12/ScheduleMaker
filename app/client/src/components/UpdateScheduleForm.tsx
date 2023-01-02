@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { start } from 'repl';
 import DateSelector from './DateSelector';
 import { parseISO, format } from 'date-fns'
+import { useNavigate } from "react-router";
 
 function UpdateScheduleForm() {
 
@@ -27,24 +28,7 @@ function UpdateScheduleForm() {
     const [idToFetchFrom, setIdToFetchFrom] = useState(0)
      
     useEffect(() => {
-        
-         /*    // if shifts AND sessionStorage has a value
-        if (data.length !== 0 && sessionStorage.getItem("ShiftToUpdateID") !== "") {
-
-            // Get data where id = id to fetch from
-            // Go through the data
-            console.log(data[idToFetchFrom]);
-
-            setDayOfWeek(data[idToFetchFrom]["day_of_week"])
-            setDate(parseISO(data[idToFetchFrom]["date"]))
-            setName(data[idToFetchFrom]["name"])
-            setPosition(data[idToFetchFrom]["position"])
-            setLocation(data[idToFetchFrom]["location"])
-            setStartTime(data[idToFetchFrom]["start_time"])
-            setEndTime(data[idToFetchFrom]["end_time"])
-            setTotalHours(data[idToFetchFrom]["total_hours"])
-        } */
-
+    
         
         // Get the id
         // DEBUG: test that we stored the id
@@ -60,29 +44,46 @@ function UpdateScheduleForm() {
     // Only runs once the update to idToFetchFrom has occured in the initial blank-array useEffect
     useEffect(() => {
 
-        console.log("ID to fetch from:", idToFetchFrom);
-
-        // const dataToRequest = {
-        //     "id": idToFetchFrom
-        // }
-
-        // add endpoint to string
-        let endpoint = "http://localhost:8000/schedule/shifts-get-by-id/" + idToFetchFrom + "/";
+        let endpoint = "http://localhost:8000/schedule/shifts/";
 
         fetch(endpoint, {
             method: "GET",
             mode: 'cors',
-            // body: JSON.stringify(dataToRequest)
         })
         .then(response => response.json()
             .then(data => {
                 console.log("DATA:", data);
                 setShifts(data); 
+                // if shifts AND sessionStorage has a value
+                if (data.length !== 0 && sessionStorage.getItem("ShiftToUpdateID") !== "") {
+
+                    console.log("ID to fetch from:", idToFetchFrom);
+
+                    // Get data where id = id to fetch from
+                    console.log(data.forEach((row:any)=>{
+                        if (idToFetchFrom === row["id"]) {
+                            console.log(row["id"] + " vs " + idToFetchFrom);
+                            console.log(idToFetchFrom === row["id"]);
+                            console.log(row);
+
+                            setDayOfWeek(row["day_of_week"])
+                            setDate(parseISO(row["date"]))
+                            setName(row["name"])
+                            setPosition(row["position"])
+                            setLocation(row["location"])
+                            setStartTime(row["start_time"])
+                            setEndTime(row["end_time"])
+                            setTotalHours(row["total_hours"])
+                        }
+                    }));
+                }
+
             })
         )
         .catch((err) => {
             console.error(err);
         })       
+
 
     }, [idToFetchFrom])
 
@@ -169,8 +170,15 @@ function UpdateScheduleForm() {
         setTotalHours(total);
     }
 
+    // Establish navigation function
+    const navigate = useNavigate();
+
     const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
 
+        // Prevent default behavior of a page refresh
+        // TODO: Make refreshes only occur if the data is INVALID
+        e.preventDefault();
+        
         // console.log(totalHours);
 
         // Validate that the end time is after the start time
@@ -183,12 +191,10 @@ function UpdateScheduleForm() {
             // TODO: Implement bool that sets an error saying "hi your times are wrong"
         }
 
-        const idToUse = JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "") - 1;
-
         // get values from useState vars into a JSON
         // TODO/NOTE: below code MUST be in snake case, convert later
         const dataToSend = {
-            id: idToUse,
+            id: idToFetchFrom,
             day_of_week: dayOfWeek,
             date: date.toISOString().substring(0,10), // These functions trim just the date part of the date object in ISO8601 format, e.g. "2022-11-13"
             name: name,
@@ -200,13 +206,10 @@ function UpdateScheduleForm() {
         }
 
         // Test the changed data:
-        console.log(JSON.stringify(dataToSend));
-
-        const shift = shifts[idToUse];
-        console.log("DATA SENT IN:", shift);
+        console.log("DATA SENT IN:", JSON.stringify(dataToSend));
         
         // send the data via PUT
-        fetch("http://localhost:8000/schedule/shifts/" + shift["id"] + "/", {
+        fetch("http://localhost:8000/schedule/shifts/" + idToFetchFrom + "/", {
             method: "PATCH",
             mode: 'cors',
             // set the body of this request to that JSON we just made
@@ -217,17 +220,12 @@ function UpdateScheduleForm() {
                 console.log("RESPONSE:", data);
                 // Clear the id from storage after successful update
                 sessionStorage.setItem("ShiftToUpdateID", "");
+                // Send user back to update page
+                navigate('/update');
             }))
         .catch(err => {
             console.error(err);
         }) 
-        
-        // refresh page
-        window.location.reload();
-
-        // Clear the value for the form
-        // TODO: UNCOMMENT THIS FOR PRODUCTION
-        sessionStorage.setItem("ShiftToUpdateID", "");
     }
 
     // STYLING

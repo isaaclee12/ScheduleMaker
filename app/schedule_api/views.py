@@ -12,23 +12,7 @@ from .serializers import ShiftsSerializer
 from django.db import connection
 
 
-# Viewset for getting just one row with a specific id
-class ShiftGetByID(viewsets.ModelViewSet):
-
-    http_method_names = ['get']
-
-    def list(self, request):
-        
-        queryset = Shifts.objects.all()
-        
-        serializer = ShiftsSerializer(queryset, many=True)
-        
-        return Response(serializer.data)
-#
-
-
-# Viewset for taking in form data and adding it to the MySQL DB
-       
+# Viewset for taking in form data and adding it to the MySQL DB       
 class ShiftsViewSet(viewsets.ModelViewSet):
 
     # Query all entries from DB
@@ -85,25 +69,20 @@ class ShiftsViewSet(viewsets.ModelViewSet):
         # Consume data from API request
         data_to_add = JSONParser().parse(request)
 
-        # print("PK IN:", int(pk))
-        # print("DATA IN:", data_to_add)
+        print("PK IN:", int(pk))
+        print("DATA IN:", data_to_add)
 
-        # Get data at that id
-        # Error is here: somehow, this query set doesn't grab the model's fields OTHER than pk.
-        # shift_to_update = Shifts.objects.filter(id__exact=int(pk)).values()
+        # Get data at that id (which was sent in via the request url)
         shift_to_update = self.get_object()
-        
-        # DEBUG CODE
-        stemp = ShiftsSerializer(shift_to_update)
-        # print("Updating shift:", stemp.data)
-
 
         serializer = ShiftsSerializer(shift_to_update, data=data_to_add, partial=True) # set partial=True to update a data partially
+
+        print("serialized it.")
         if serializer.is_valid():
             updated_data = serializer.save()
             updated_data = ShiftsSerializer(updated_data)
             # print("UPDATED DATA:", updated_data)
-            return Response(updated_data, status=status.HTTP_200_OK)
+            return Response(updated_data.data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 

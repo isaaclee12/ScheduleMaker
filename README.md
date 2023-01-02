@@ -36,7 +36,6 @@ Clone the repository, open a command line instance within the folder:
   - DatePicker and Fontawesome symbols appearing over NavBar
 
 - PHASE 1: CRUD App Completion
-  - Test update form features
   - Upload basic CRUD App to Cyclic
 
 - PHASE 2: Dates + Glow Up

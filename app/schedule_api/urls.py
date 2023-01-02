@@ -1,9 +1,7 @@
 from rest_framework import routers
-from .views import ShiftGetByID, ShiftsViewSet, DateViewSet, MondayViewSet, TuesdayViewSet, WednesdayViewSet, ThursdayViewSet, FridayViewSet, SaturdayViewSet, SundayViewSet
+from .views import ShiftsViewSet, DateViewSet, MondayViewSet, TuesdayViewSet, WednesdayViewSet, ThursdayViewSet, FridayViewSet, SaturdayViewSet, SundayViewSet
 
 router = routers.SimpleRouter()
-
-router.register(r'shifts-get-by-id', ShiftGetByID, basename="shifts")
 
 router.register(r'shifts', ShiftsViewSet, basename="shifts")
 router.register(r'dates', DateViewSet, basename="dates")
