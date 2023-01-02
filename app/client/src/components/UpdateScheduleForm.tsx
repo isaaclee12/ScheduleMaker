@@ -73,31 +73,10 @@ function UpdateScheduleForm() {
     }
 
     // When shifts consumes the data from the API, pass the data to the other states
-    useEffect(() => {
-        // console.log(shifts);
-        // if shifts AND sessionStorage has a value
-        if (shifts.length != 0 && sessionStorage.getItem("ShiftToUpdateID") != "") {
-            // DEBUG: test that we stored the id
-            console.log("Update Form Got Shift ID:", sessionStorage.getItem("ShiftToUpdateID"));
-
-            // .getItem returns a "string | null" type, so we wrap it in JSON.parse to force it to return a "string" only type
-            // We then subtract 1, because for some reason it just adds on 1
-            const idToFetchFrom: number = JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "") - 1;
-
-            // console.log("Shift To Insert Into Update Form:", shifts[idToFetchFrom]);
-
-            // console.log("Testing items:", shifts[idToFetchFrom]["day_of_week"]);
-
-            setDayOfWeek(shifts[idToFetchFrom]["day_of_week"])
-            setDate(parseISO(shifts[idToFetchFrom]["date"]))
-            setName(shifts[idToFetchFrom]["name"])
-            setPosition(shifts[idToFetchFrom]["position"])
-            setLocation(shifts[idToFetchFrom]["location"])
-            setStartTime(shifts[idToFetchFrom]["start_time"])
-            setEndTime(shifts[idToFetchFrom]["end_time"])
-            setTotalHours(shifts[idToFetchFrom]["total_hours"])
-        }
-    }, [shifts])
+    // useEffect(() => {
+ 
+    //     }
+    // }, [shifts])
 
     useEffect(() => {
         // Get data
@@ -111,15 +90,39 @@ function UpdateScheduleForm() {
         })
         .then(response => response.json()
             .then(data => {
-                // console.log("DATA:", data);
+                console.log("DATA:", data);
                 setShifts(data); 
-                // console.log("SHIFTS:", shifts);
+
+                // if shifts AND sessionStorage has a value
+                if (data.length !== 0 && sessionStorage.getItem("ShiftToUpdateID") !== "") {
+                    // DEBUG: test that we stored the id
+                    console.log("Update Form Got Shift ID:", sessionStorage.getItem("ShiftToUpdateID"));
+
+                    // .getItem returns a "string | null" type, so we wrap it in JSON.parse to force it to return a "string" only type
+                    // We then subtract 1, because for some reason it just adds on 1
+                    const idToFetchFrom: number = JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "") - 1;
+
+                    // console.log("Shift To Insert Into Update Form:", data[idToFetchFrom]);
+
+                    // console.log("Testing items:", data[idToFetchFrom]["day_of_week"]);
+
+                    console.log(data[idToFetchFrom]);
+
+                    setDayOfWeek(data[idToFetchFrom]["day_of_week"])
+                    setDate(parseISO(data[idToFetchFrom]["date"]))
+                    setName(data[idToFetchFrom]["name"])
+                    setPosition(data[idToFetchFrom]["position"])
+                    setLocation(data[idToFetchFrom]["location"])
+                    setStartTime(data[idToFetchFrom]["start_time"])
+                    setEndTime(data[idToFetchFrom]["end_time"])
+                    setTotalHours(data[idToFetchFrom]["total_hours"])
+                }
             })
         )
         .catch((err) => {
             console.error(err);
         })       
-        
+
     }, [])
 
     const validateData = (): boolean => {
@@ -190,8 +193,11 @@ function UpdateScheduleForm() {
         // Test the changed data:
         console.log(JSON.stringify(dataToSend));
 
+        const shift = shifts[JSON.parse(sessionStorage.getItem("ShiftToUpdateID") || "") - 1];
+        console.log("DATA SENT IN:", shift);
+        
         // send the data via PUT
-        fetch("http://localhost:8000/schedule/shifts/", {
+        fetch("http://localhost:8000/schedule/shifts/" + shift["id"] + "/", {
             method: "PUT",
             mode: 'cors',
             // set the body of this request to that JSON we just made
@@ -199,7 +205,7 @@ function UpdateScheduleForm() {
         })
         .then(response => response.json()
             .then(data => {
-                console.log(data);
+                console.log("RESPONSE:", data);
                 // Clear the id from storage after successful update
                 sessionStorage.setItem("ShiftToUpdateID", "");
             }))
@@ -211,6 +217,7 @@ function UpdateScheduleForm() {
         window.location.reload();
 
         // Clear the value for the form
+        // TODO: UNCOMMENT THIS FOR PRODUCTION
         sessionStorage.setItem("ShiftToUpdateID", "");
 
 

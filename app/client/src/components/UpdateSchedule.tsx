@@ -28,7 +28,7 @@ function DeleteSchedule() {
         // Get the id of the shift as shift["id"]
         // Send the id to UpdateScheduleForm.tsx***
         sessionStorage.setItem("ShiftToUpdateID", shift["id"]);
-        console.log(sessionStorage.getItem("ShiftToUpdateID"));
+        console.log((sessionStorage.getItem("ShiftToUpdateID")));
         
         // Send user to the form page
         if (shift["id"]) {
