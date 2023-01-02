@@ -5,7 +5,7 @@
     "scripts": {
         "start": "concurrently \"npm:start-client\" \"npm:start-server\"",
         "start-server": "cd server && python manage.py runserver",
-        "build": "npm install && npm --prefix client run build",
+        "build": "npm --prefix client run build",
         "start-client": "npm --prefix client start",
         "postinstall": "npm run build"
     },
