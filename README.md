@@ -24,9 +24,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <!-- <a href="https://github.com/isaaclee12/ScheduleMaker">
-    <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
-  </a>
 
 <h3 align="center">ScheduleMaker</h3>
 
@@ -42,6 +39,9 @@
     ·
     <a href="https://github.com/isaaclee12/ScheduleMaker/issues">Request Feature</a> -->
   </p>
+  <a href="https://github.com/isaaclee12/ScheduleMaker">
+    <img src="ScheduleMaker.jpg" alt="Logo" width="600" height="300">
+  </a>
 </div>
 
 
