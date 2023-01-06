@@ -1,5 +1,4 @@
 <h1 align="center">ScheduleMaker</h1>
-<h3 align="center">v0.1.0</h3>
 
   <p align="center">
     A webtool designed to help your small business keep track of your employee's schedules!
@@ -14,7 +13,7 @@
     <a href="https://github.com/isaaclee12/ScheduleMaker/issues">Request Feature</a> -->
   </p>
   <a href="https://github.com/isaaclee12/ScheduleMaker">
-    <img src="ScheduleMaker.jpg" alt="Logo" width="600" height="300" position="flex" justify-content="center">
+    <img src="ScheduleMaker.jpg" alt="Logo" width="100%" height="300">
   </a>
 </div>
 
