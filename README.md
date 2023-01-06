@@ -1,5 +1,5 @@
 <h1 align="center">ScheduleMaker</h1>
-<h3>v0.1.0</h3>
+<h3 align="center">v0.1.0</h3>
 
   <p align="center">
     A webtool designed to help your small business keep track of your employee's schedules!
