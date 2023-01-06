@@ -94,8 +94,6 @@ Use this space to show useful examples of how a project can be used. Additional 
     - TODO: Delete function not deleting certain items
     - TODO: DatePicker and Fontawesome symbols appearing over NavBar
 
-  - Upload basic CRUD App to Cyclic
-
 - PHASE 2: Dates + Glow Up
   - Refactor the code to have better code patterns.
   - Create dummy data for future weeks so the app just works.
@@ -104,7 +102,6 @@ Use this space to show useful examples of how a project can be used. Additional 
   - Aesthetics:
     - Mobile responsiveness
     - Better CSS please!
-  - Deploy to cyclic
 
 - PHASE 3: Authentication & Data Cleaning
   - Implement Basic JWT Authentication for a single account
@@ -113,13 +110,12 @@ Use this space to show useful examples of how a project can be used. Additional 
   - Have one admin account and a few employee accounts
   - Have schedules displayed based on who's logged in
   - Document the whole thing down to the last line, for your own reference later when you make another CRUD app
-  - Deploy to Cyclic - THIS IS MVP
 
-
-- Phase 4: (Optional) Add availability, time off, and other features
+- Phase 4: Add availability, time off, and other features
   - Add availability (2 weeks out, for employees, any for managers)
   - Add time off (2 weeks out, for employees, any for managers)
   - Add other features in notebook
+  - MVP Complete!
 
 See the [open issues](https://github.com/isaaclee12/ScheduleMaker/issues) for a full list of proposed features (and known issues).
 
