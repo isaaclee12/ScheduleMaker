@@ -1,31 +1,5 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-
-<h3 align="center">ScheduleMaker</h3>
+<h1 align="center">ScheduleMaker</h1>
+<h3>v0.1.0</h3>
 
   <p align="center">
     A webtool designed to help your small business keep track of your employee's schedules!
@@ -72,11 +46,8 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
-<!-- 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `isaaclee12`, `ScheduleMaker`, `twitter_handle`, `linkedin_username`, isaac.wonha.lee.com`, `email`, `project_title`, `project_description`
-
+- ScheduleMaker is a CRUD application designed to help employers easily manage their staff's schedules.
+- ScheduleMaker uses industry standard technologies like React, Django, and SQL, to securely manage and store scheduling data
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
@@ -90,8 +61,6 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
 * Node
 * npm
 * Django
@@ -102,7 +71,7 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/isaaclee12/ScheduleMaker.git
    ```
-2. Run the app (npm install will be performed automatically)
+2. Run the app (npm install will be performed automatically, and the server and client will be run concurrently)
   ```npm start```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
