@@ -13,8 +13,8 @@
     ·
     <a href="https://github.com/isaaclee12/ScheduleMaker/issues">Request Feature</a> -->
   </p>
-  <a href="https://github.com/isaaclee12/ScheduleMaker" align="center">
-    <img src="ScheduleMaker.jpg" alt="Logo" width="600" height="300">
+  <a href="https://github.com/isaaclee12/ScheduleMaker">
+    <img src="ScheduleMaker.jpg" alt="Logo" width="600" height="300" position="flex" justify-content="center">
   </a>
 </div>
 
