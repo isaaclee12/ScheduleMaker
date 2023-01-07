@@ -1,10 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UpdateScheduleContext } from "../contexts/UpdateScheduleContext";
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router";
 
-function DeleteSchedule() {
+function UpdateSchedule() {
 
     // This hook gets our context variable
     // const [updateScheduleContext] = useContext(UpdateScheduleContext)
@@ -248,4 +247,4 @@ function DeleteSchedule() {
     )
 }
 
-export default DeleteSchedule;
+export default UpdateSchedule;

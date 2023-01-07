@@ -102,6 +102,7 @@ Use this space to show useful examples of how a project can be used. Additional 
   - Aesthetics:
     - Mobile responsiveness
     - Better CSS please!
+    - Dark Mode
 
 - PHASE 3: Authentication & Data Cleaning
   - Implement Basic JWT Authentication for a single account
