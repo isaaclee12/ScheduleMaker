@@ -6,7 +6,7 @@ import useScheduleContext from '../contexts/ScheduleContext'
 
 function Form() {
 
-    const requestType = useScheduleContext([]);
+    const requestType = useScheduleContext().requestType;
 
     const [dayOfWeek, setDayOfWeek] = useState("")
     const [date, setDate] = useState(new Date())
@@ -131,6 +131,8 @@ function Form() {
             end_time: endTime,
             total_hours: totalHours
         }
+
+        console.log("REQUEST TYPE:", requestType.toString());
 
         // send the data via POST
         fetch("http://localhost:8000/schedule/shifts/", {

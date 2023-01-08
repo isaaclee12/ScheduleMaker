@@ -1,11 +1,19 @@
 // import { ReadVResult } from 'fs';
-import React from 'react';
+import {useEffect} from 'react';
 import Form from './Form';
-import {useScheduleContext} from '../contexts/ScheduleContext'
+import useScheduleContext from '../contexts/ScheduleContext'
 
 function AddSchedule() {
-    const setRequestType = useScheduleContext();
-    setRequestType("POST");
+    const {requestType, setRequestType} = useScheduleContext();
+
+    useEffect(() => {
+        setRequestType("POST");
+        console.log("request type set");
+    }, [])
+
+    useEffect(() => {
+        console.log("Request type in AddSchedule:", requestType);
+    }, [requestType])
 
     return (
         <Form/>
