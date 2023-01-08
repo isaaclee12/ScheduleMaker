@@ -4,10 +4,10 @@ import Form from './Form';
 import useScheduleContext from '../contexts/ScheduleContext'
 
 function AddSchedule() {
-    const {requestType, setRequestType} = useScheduleContext();
+    const {requestType, changeRequestType} = useScheduleContext();
 
     useEffect(() => {
-        setRequestType("POST");
+        changeRequestType("POST");
         console.log("request type set");
     }, [])
 
