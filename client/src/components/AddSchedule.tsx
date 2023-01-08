@@ -8,12 +8,7 @@ function AddSchedule() {
 
     useEffect(() => {
         changeRequestType("POST");
-        console.log("request type set");
     }, [])
-
-    useEffect(() => {
-        console.log("Request type in AddSchedule:", requestType);
-    }, [requestType])
 
     return (
         <Form/>
