@@ -6,7 +6,7 @@ import useScheduleContext from '../contexts/ScheduleContext'
 
 function Form() {
 
-    const requestType = useScheduleContext().requestType;
+    const {requestType, formBackgroundStyle} = useScheduleContext();
 
     const [dayOfWeek, setDayOfWeek] = useState("")
     const [date, setDate] = useState(new Date())
@@ -168,17 +168,17 @@ function Form() {
     }, [startTime, endTime])
 
     // STYLING
-    const [inputStyle, setInputStyle] = useState("form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center")
+    const inputStyle = "form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none border flex items-center justify-center";
 
     return(
-        <div className=" bg-gradient-to-r from-cyan-500 to-blue-500">
+        <div className={formBackgroundStyle}> 
             <br/>
 
-            {/* <button className="border" onClick={(e) => validateTotalHoursTest()}>TESTER</button> */}
+            <h1 className="flex justify-center text-5xl mb-10 mt-5">{
+                requestType === "POST" ? "Add Shift" : "Update Shift"
+            }</h1>
 
-            <h1 className="flex justify-center text-5xl mb-10 mt-5">Add Shift</h1>
-
-            <div className="w-full bg-gradient-to-r from-cyan-500 to-blue-500">
+            <div className={"w-full " + formBackgroundStyle}>
                 <form className="mx-60 mt-10 pb-40">
                     <br/>
                     <label className="">

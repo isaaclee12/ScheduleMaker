@@ -1,14 +1,17 @@
-import { createContext, useContext, useState } from 'react';
-import { VoidExpression } from 'typescript';
+import { createContext, useContext } from 'react';
 
 interface RequestTypeContext {
   requestType: string;
   changeRequestType: (r: string) => void;
+  formBackgroundStyle: string;
+  changeFormBackgroundStyle: (r: string) => void;
 }
 
 export const defaultState = {
   requestType: "",
-  changeRequestType: () => {}
+  changeRequestType: () => {},
+  formBackgroundStyle: "",
+  changeFormBackgroundStyle: () => {}
 }
 
 export const ScheduleContext = createContext<RequestTypeContext>(defaultState);

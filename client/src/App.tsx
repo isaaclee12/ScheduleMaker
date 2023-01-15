@@ -16,11 +16,15 @@ function App() {
   const changeRequestType = (r: string) => {
     setRequestType(r);
   };
+  const [formBackgroundStyle, setFormBackgroundStyle] = useState(defaultState.formBackgroundStyle);
+  const changeFormBackgroundStyle = (r: string) => {
+    setFormBackgroundStyle(r);
+  };
 
   return (
     <div className="App">
       <NavBar/>
-      <ScheduleContext.Provider value={{requestType, changeRequestType}}>
+      <ScheduleContext.Provider value={{requestType, changeRequestType, formBackgroundStyle, changeFormBackgroundStyle}}>
         <Routes>
           <Route index element={<Schedule/>}></Route>
           <Route path="add" element={<AddSchedule/>}></Route>

@@ -4,10 +4,11 @@ import Form from './Form';
 import useScheduleContext from '../contexts/ScheduleContext'
 
 function AddSchedule() {
-    const {requestType, changeRequestType} = useScheduleContext();
+    const {changeRequestType, changeFormBackgroundStyle} = useScheduleContext();
 
     useEffect(() => {
         changeRequestType("POST");
+        changeFormBackgroundStyle("bg-gradient-to-r from-cyan-500 to-blue-500");
     }, [])
 
     return (

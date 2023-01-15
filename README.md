@@ -90,10 +90,7 @@ Use this space to show useful examples of how a project can be used. Additional 
 ## Roadmap
 
 - PHASE 1: CRUD App Completion
-  - Bugs to fix:
-    - TODO: Certain CRUD functionalities I think just take a minute to load
-    - TODO: Form DatePicker and Fontawesome symbols appearing over NavBar
-  - Add update form gradient + text to Update Schedule Form -> Have it passed in to <Form/>
+  - NOTE: CRUD functionalities take a minute to load on launch
   - put secrets inside server folder + .gitignore'd
   - Migrate db to elephantSQL
     - migrate database into elephant SQL

@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(os.path.join(BASE_DIR, '../../secret_key_small_business_schedule_software.txt')) as f:
+with open(os.path.join(BASE_DIR, './secret_key_small_business_schedule_software.txt')) as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 # Strip mysql password
-with open(os.path.join(BASE_DIR, '../../secret_key_mysql.txt')) as f:
+with open(os.path.join(BASE_DIR, './secret_key_mysql.txt')) as f:
     SQL_PASSWORD = f.read().strip()
 
 DATABASES = {
