@@ -30,7 +30,15 @@ class ShiftsViewSet(viewsets.ModelViewSet):
         # Get the data from the backend, serialize it, and return it as JSON
         queryset = Shifts.objects.all()
 
+        # TODO: This.
+        # Pseudocode:
+        # filter query set by each day of week
+        # have those query sets returned in one big json
+        # also create a json of distinct dates for each day of week
+        
         serializer = ShiftsSerializer(queryset, many=True)
+
+
 
         # Return to front end
         return Response(serializer.data)

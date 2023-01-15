@@ -91,7 +91,6 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 - PHASE 1: CRUD App Completion
   - NOTE: CRUD functionalities take a minute to load on launch
-  - put secrets inside server folder + .gitignore'd
   - Migrate db to elephantSQL
     - migrate database into elephant SQL
     - get schedule data in elephantSQL
