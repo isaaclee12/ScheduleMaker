@@ -65,7 +65,7 @@ function Form() {
 
     useEffect(() => {
         console.log("FORM DATA:", requestType);
-    }, [])
+    }, [requestType])
 
     const validateData = (): boolean => {
 
@@ -120,19 +120,32 @@ function Form() {
             // TODO: Implement bool that sets an error saying "hi your times are wrong"
         }
 
-        // get values from useState hooks into a JSON
+        // Debug values TODO: Comment this out
         const dataToSend = {
-            day_of_week: dayOfWeek,
-            date: date.toISOString().substring(0,10), // These functions trim just the date part of the date object in ISO8601 format, e.g. "2022-11-13"
-            name: name,
-            position: position,
-            location: location,
-            start_time: startTime,
-            end_time: endTime,
-            total_hours: totalHours
+            day_of_week: "Monday",
+            date: "2022-11-07",
+            name: "Becky",
+            position: "Host",
+            location: "Main St",
+            start_time: "3:00PM",
+            end_time: "8:00PM",
+            total_hours: 5
         }
 
+        // get values from useState hooks into a JSON
+        // const dataToSend = {
+        //     day_of_week: dayOfWeek,
+        //     date: date.toISOString().substring(0,10), // These functions trim just the date part of the date object in ISO8601 format, e.g. "2022-11-13"
+        //     name: name,
+        //     position: position,
+        //     location: location,
+        //     start_time: startTime,
+        //     end_time: endTime,
+        //     total_hours: totalHours
+        // }
+
         console.log("REQUEST TYPE:", requestType.toString());
+        console.log("DATA SENDING IN:", dataToSend);
 
         // send the data via POST
         fetch("http://localhost:8000/schedule/shifts/", {
@@ -185,7 +198,7 @@ function Form() {
                     <br/>
                     <label>
                         date:
-                        <div className={inputStyle}>
+                        <div className={"-z-50 "+ inputStyle}>
                             {/* Note: currently, the datepicker defaults to today no matter what */}
                             <DatePicker selected={date} value="11/07/2022" onChange={(d: Date) => setDate(d)} />
                         </div>       

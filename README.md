@@ -91,12 +91,18 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 - PHASE 1: CRUD App Completion
   - Bugs to fix:
-    - TODO: Delete function not deleting certain items
-    - TODO: DatePicker and Fontawesome symbols appearing over NavBar
+    - TODO: Certain CRUD functionalities I think just take a minute to load
+    - TODO: Form DatePicker and Fontawesome symbols appearing over NavBar
+  - Add update form gradient + text to Update Schedule Form -> Have it passed in to <Form/>
+  - put secrets inside server folder + .gitignore'd
+  - Migrate db to elephantSQL
+    - migrate database into elephant SQL
+    - get schedule data in elephantSQL
 
 - PHASE 2: Dates + Glow Up
   - Refactor the code to have better code patterns.
-  - Create dummy data for future weeks so the app just works.
+  - Set app to always display the current week
+  - Create dummy data for future weeks from today through the next year so the app just works.
   - Add date-fns features to have a front page that stays at the current week.
   - Add ability to go between weeks
   - Aesthetics:
