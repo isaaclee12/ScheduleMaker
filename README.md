@@ -91,16 +91,12 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 - PHASE 1: CRUD App Completion
   - NOTE: CRUD functionalities take a minute to load on launch
-  - Migrate db to elephantSQL
-    - migrate database into elephant SQL
-    - get schedule data in elephantSQL
 
 - PHASE 2: Dates + Glow Up
-  - Refactor the code to have better code patterns.
-  - Set app to always display the current week
   - Create dummy data for future weeks from today through the next year so the app just works.
   - Add date-fns features to have a front page that stays at the current week.
   - Add ability to go between weeks
+  - Refactor the code to have better code patterns.
   - Aesthetics:
     - Mobile responsiveness
     - Better CSS please!
@@ -112,7 +108,7 @@ Use this space to show useful examples of how a project can be used. Additional 
   - Add Roles System
   - Have one admin account and a few employee accounts
   - Have schedules displayed based on who's logged in
-  - Document the whole thing down to the last line, for your own reference later when you make another CRUD app
+  - Document the whole thing
 
 - Phase 4: Add availability, time off, and other features
   - Add availability (2 weeks out, for employees, any for managers)

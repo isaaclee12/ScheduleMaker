@@ -11,6 +11,8 @@ from .serializers import ShiftsSerializer
 
 from django.db import connection
 
+from datetime import datetime, timedelta
+
 
 # Viewset for taking in form data and adding it to the MySQL DB       
 class ShiftsViewSet(viewsets.ModelViewSet):
@@ -28,20 +30,45 @@ class ShiftsViewSet(viewsets.ModelViewSet):
     def list(self, request):
 
         # Get the data from the backend, serialize it, and return it as JSON
-        queryset = Shifts.objects.all()
+        queryset = Shifts.objects
 
-        # TODO: This.
-        # Pseudocode:
+        # TODO: 
+        # Json structure:
+        """
+        Dates In Week: {}
+        Monday Shifts: {}
+        Tuesday Shifts: {}
+        ... etc
+        """
+
+        this_weeks_shifts = []
+
+        # get date for today
+        today = datetime.now()
+
+        # get distinct dates for each day of week from monday to sunday
+        current_weekday = today.isoweekday()
+        dates_of_week = []
+        for i in range(1, 7 + 1):
+            day_to_add = today + timedelta(days = (i - current_weekday))
+            dates_of_week.append(day_to_add.date())
+
+        # print(str(dates_of_week[0]))
+
+        this_weeks_shifts.append(dates_of_week)
+
         # filter query set by each day of week
-        # have those query sets returned in one big json
-        # also create a json of distinct dates for each day of week
+        for i in range(0, 7):
+            queryset = Shifts.objects.filter(date__exact=str(dates_of_week[i]))
+            weekdays_shifts = ShiftsSerializer(queryset, many=True)
+            # print(f"\n\n{i}:",weekdays_shifts.data)
+            this_weeks_shifts.append(weekdays_shifts.data)
+
+        # for item in this_weeks_shifts:
+        #     print(item)
         
-        serializer = ShiftsSerializer(queryset, many=True)
-
-
-
-        # Return to front end
-        return Response(serializer.data)
+        # have those query sets returned in one big json
+        return Response(this_weeks_shifts)
 
     # DELETE
     @method_decorator(never_cache) 

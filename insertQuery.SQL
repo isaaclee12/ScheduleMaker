@@ -1,18 +1,2 @@
-INSERT INTO schedule_api_shifts
-VALUES (1,'Monday','2022-11-07','Isaac','Server','Main St','3:00PM','10:00PM',7),
-(2,'Monday','2022-11-07','Kevin','Server','Main St','3:00PM','10:00PM',7),
-(3,'Tuesday','2022-11-08','Isaac','Server','Main St','3:00PM','10:00PM',7),
-(4,'Tuesday','2022-11-08','Kevin','Server','Main St','3:00PM','10:00PM',7),
-(5,'Wednesday','2022-11-09','Isaac','Server','Main St','3:00PM','10:00PM',7),
-(6,'Wednesday','2022-11-09','Kevin','Server','Main St','3:00PM','10:00PM',7),
-(7,'Thursday','2022-11-10','Isaac','Server','Main St','3:00PM','10:00PM',7),
-(8,'Thursday','2022-11-10','Kevin','Server','Main St','3:00PM','10:00PM',7),
-(9,'Friday','2022-11-11','Isaac','Server','Main St','3:00PM','10:00PM',7),
-(10,'Friday','2022-11-11','Kevin','Server','Main St','3:00PM','10:00PM',7),
-(11,'Saturday','2022-11-12','Becky','Server','Main St','3:00PM','10:00PM',7),
-(12,'Saturday','2022-11-12','Carla','Server','Main St','3:00PM','10:00PM',7),
-(13,'Sunday','2022-11-13','Becky','Server','Main St','3:00PM','10:00PM',7),
-(14,'Sunday','2022-11-13','Carla','Server','Main St','3:00PM','10:00PM',7),
-(38,'Wednesday','2023-01-03','Maya','Barista','Main St','3:00PM','8:00PM',5),
-(39,'Tuesday','2023-01-03','Maya','Barista','Main St','3:00PM','5:00PM',2),
-(44,'Monday','2022-11-07','Becky','Host','Main St','3:00PM','8:00PM',5);
+INSERT INTO schedule_api_shifts (day_of_week, date, name, position, location, start_time, end_time, total_hours)
+VALUES 
