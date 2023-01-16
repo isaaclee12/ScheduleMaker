@@ -38,7 +38,7 @@ function DeleteSchedule() {
         })
         .then(response => {
             console.log(response);
-            navigate('/');
+            window.location.reload();
         })
         .catch((error) => {
             console.error(error);

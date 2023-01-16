@@ -215,12 +215,12 @@ function Form() {
                 mode: 'cors',
                 body: JSON.stringify(dataToSend)
             })
-                .then(response => {
+                .then(() => {
                     // console.log(response);
                     navigate('/');
                 })
                 .catch(err => {
-                    // console.error(err);
+                    console.error(err);
                 })
 
             // send the data via PATCH
@@ -232,14 +232,14 @@ function Form() {
                 body: JSON.stringify(dataToSend)
             })
                 .then(response => response.json()
-                    .then(data => {
+                    .then(() => {
                         // console.log("RESPONSE:", data);
                         // Clear the id from storage after successful update
                         sessionStorage.setItem("ShiftToUpdateID", "");
                         navigate('/');
                     }))
                 .catch(err => {
-                    // console.error(err);
+                    console.error(err);
                 })
         }
 

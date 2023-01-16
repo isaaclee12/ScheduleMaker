@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleMinus, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from "react-router";
 
 function Schedule() {
 
@@ -11,6 +14,8 @@ function Schedule() {
     const [fridayShifts, setFridayShifts] = useState([])
     const [saturdayShifts, setSaturdayShifts] = useState([])
     const [sundayShifts, setSundayShifts] = useState([])
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -25,12 +30,43 @@ function Schedule() {
                 setWednesdayShifts(data[3]);
                 setThursdayShifts(data[4]);
                 setFridayShifts(data[5]);
-                setSaturdayShifts(data[6]);                 
-                setSundayShifts(data[7]);                 
+                setSaturdayShifts(data[6]);
+                setSundayShifts(data[7]);
             })
         )
 
     }, [])
+
+    const updateShift = (event: any, shift: any) => {
+
+        // Get the id of the shift as shift["id"]
+        // Send the id to UpdateScheduleForm.tsx***
+        sessionStorage.setItem("ShiftToUpdateID", shift["id"]);
+        console.log((sessionStorage.getItem("ShiftToUpdateID")));
+
+        // Send user to the form page
+        if (shift["id"]) {
+            navigate('/update-form');
+        }
+
+        return;
+    }
+
+    const deleteShift = (event: React.MouseEvent<SVGSVGElement, MouseEvent>, id: number) => {
+        event.preventDefault();
+
+        fetch("http://localhost:8000/schedule/shifts/" + id + "/", {
+            method: "DELETE",
+            mode: 'cors',
+        })
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
 
 
     return (
@@ -64,6 +100,10 @@ function Schedule() {
                             {mondayShifts.map((shift, index) =>
                                 <div key={index}>
                                     <br />
+                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
+
+                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
+
                                     <p>{shift['name']}</p>
                                     <p>{shift['position']}</p>
                                     <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -76,6 +116,10 @@ function Schedule() {
                             {tuesdayShifts.map((shift, index) =>
                                 <div key={index}>
                                     <br />
+                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
+
+                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
+
                                     <p>{shift['name']}</p>
                                     <p>{shift['position']}</p>
                                     <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -88,6 +132,10 @@ function Schedule() {
                             {wednesdayShifts.map((shift, index) =>
                                 <div key={index}>
                                     <br />
+                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
+
+                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
+
                                     <p>{shift['name']}</p>
                                     <p>{shift['position']}</p>
                                     <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -100,6 +148,10 @@ function Schedule() {
                             {thursdayShifts.map((shift, index) =>
                                 <div key={index}>
                                     <br />
+                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
+
+                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
+
                                     <p>{shift['name']}</p>
                                     <p>{shift['position']}</p>
                                     <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -112,6 +164,10 @@ function Schedule() {
                             {fridayShifts.map((shift, index) =>
                                 <div key={index}>
                                     <br />
+                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
+
+                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
+
                                     <p>{shift['name']}</p>
                                     <p>{shift['position']}</p>
                                     <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -124,6 +180,10 @@ function Schedule() {
                             {saturdayShifts.map((shift, index) =>
                                 <div key={index}>
                                     <br />
+                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
+
+                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
+
                                     <p>{shift['name']}</p>
                                     <p>{shift['position']}</p>
                                     <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -136,6 +196,10 @@ function Schedule() {
                             {sundayShifts.map((shift, index) =>
                                 <div key={index}>
                                     <br />
+                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
+
+                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
+
                                     <p>{shift['name']}</p>
                                     <p>{shift['position']}</p>
                                     <p>{shift['start_time'] + "-" + shift['end_time']}</p>
