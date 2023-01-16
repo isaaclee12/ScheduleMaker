@@ -82,19 +82,16 @@ class ShiftsViewSet(viewsets.ModelViewSet):
     def create(self, request):
         data_to_add = JSONParser().parse(request)
         serializer = ShiftsSerializer(data=data_to_add)
-        # serializer = ShiftsSerializer(data=request.data)
 
-        # print(request.body)
-        print("got data:", serializer.initial_data)
+        print("got data:", serializer.initial_data) # Debug
 
-        # print("Post", serializer.is_valid())
         if not serializer.is_valid():
             print("Errors", serializer.errors)
    
         if serializer.is_valid():
             serializer.save()
             print("Success")
-            return Response("Success")
+            return Response(status=status.HTTP_201_CREATED)
 
         return Response("Failure")        
 
@@ -119,128 +116,3 @@ class ShiftsViewSet(viewsets.ModelViewSet):
             # print("UPDATED DATA:", updated_data)
             return Response(updated_data.data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-class DateViewSet(viewsets.ModelViewSet):
-
-    # Query all entries from DB
-    queryset = Shifts.objects.all().values_list('date').distinct()
-
-    http_method_names = ['get']
-
-    def list(self, request):
-
-        # serializer = ShiftsSerializer(self.queryset, many=True)
-
-        # Return to front end
-        return Response(self.queryset)
-
-
-# Day of week viewsets
-class MondayViewSet(viewsets.ModelViewSet):
-    
-    # Below code: on get request, return the queryWeek var
-    http_method_names = ['get']
-
-    def list(self, request):
-
-        # NOTE TO SELF: These declarations need to be INSIDE this function BECAUSE we
-        # Want it to run on EVERY get request so the data stays up to date
-        queryset = Shifts.objects.filter(day_of_week__exact="Monday")
-
-        serializer = ShiftsSerializer(queryset, many=True)
-
-        # Return to front end
-        return Response(serializer.data)
-
-        
-class TuesdayViewSet(viewsets.ModelViewSet):
-    
-    # Below code: on get request, return the queryWeek var
-    http_method_names = ['get']
-
-    def list(self, request):
-
-        queryset = Shifts.objects.filter(day_of_week__exact="Tuesday")
-
-        serializer = ShiftsSerializer(queryset, many=True)
-
-        # Return to front end
-        return Response(serializer.data)
-
-
-class WednesdayViewSet(viewsets.ModelViewSet):
-    
-    # Below code: on get request, return the queryWeek var
-    http_method_names = ['get']
-
-    def list(self, request):
-
-        queryset = Shifts.objects.filter(day_of_week__exact="Wednesday")
-
-        serializer = ShiftsSerializer(queryset, many=True)
-
-        # Return to front end
-        return Response(serializer.data)
-
-
-class ThursdayViewSet(viewsets.ModelViewSet):
-    
-    # Below code: on get request, return the queryWeek var
-    http_method_names = ['get']
-
-    def list(self, request):
-
-        queryset = Shifts.objects.filter(day_of_week__exact="Thursday")
-
-        serializer = ShiftsSerializer(queryset, many=True)
-
-        # Return to front end
-        return Response(serializer.data)
-
-
-class FridayViewSet(viewsets.ModelViewSet):
-    
-    # Below code: on get request, return the queryWeek var
-    http_method_names = ['get']
-
-    def list(self, request):
-
-        queryset = Shifts.objects.filter(day_of_week__exact="Friday")
-
-        serializer = ShiftsSerializer(queryset, many=True)
-
-        # Return to front end
-        return Response(serializer.data)
-
-
-class SaturdayViewSet(viewsets.ModelViewSet):
-    
-    # Below code: on get request, return the queryWeek var
-    http_method_names = ['get']
-
-    def list(self, request):
-
-        queryset = Shifts.objects.filter(day_of_week__exact="Saturday")
-
-        serializer = ShiftsSerializer(queryset, many=True)
-
-        # Return to front end
-        return Response(serializer.data)
-
-
-class SundayViewSet(viewsets.ModelViewSet):
-
-    # Below code: on get request, return the queryWeek var
-    http_method_names = ['get']
-
-    def list(self, request):
-
-        queryset = Shifts.objects.filter(day_of_week__exact="Sunday")
-
-        serializer = ShiftsSerializer(queryset, many=True)
-
-        # Return to front end
-        return Response(serializer.data)
-
-

@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleMinus } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from "react-router";
 
 function DeleteSchedule() {
 
-    const [shifts, setShifts] = useState([])
     const [dates, setDates] = useState([])
-
     const [mondayShifts, setMondayShifts] = useState([])
     const [tuesdayShifts, setTuesdayShifts] = useState([])
     const [wednesdayShifts, setWednesdayShifts] = useState([])
@@ -15,100 +14,58 @@ function DeleteSchedule() {
     const [saturdayShifts, setSaturdayShifts] = useState([])
     const [sundayShifts, setSundayShifts] = useState([])
 
-    const deleteShift = (event: any, shift: any) => {
-        console.log(shift["id"]);
-        fetch("http://localhost:8000/schedule/shifts/" + shift["id"],  {
+
+    const navigate = useNavigate();
+
+    interface Shift {
+        id: number,
+        day_of_week: string,
+        date: string,
+        name: string,
+        position: string,
+        location: string,
+        start_time: string,
+        end_time: string,
+        total_hours: number
+    }
+
+    const deleteShift = (event: React.MouseEvent<SVGSVGElement, MouseEvent>, id: number) => {
+        event.preventDefault();
+
+        fetch("http://localhost:8000/schedule/shifts/" + id + "/",  {
             method: "DELETE",
             mode: 'cors',
         })
-        .then(response => response.json()
-            .then(data => {
-                console.log(data);
-            })
-        )
+        .then(response => {
+            console.log(response);
+            navigate('/');
+        })
         .catch((error) => {
             console.error(error);
         })
-        // refresh page
-        window.location.reload();
     }
 
     useEffect(() => {
         console.log("shifts:", mondayShifts);
     }, [mondayShifts]);
     
-    useEffect(() => {
+        useEffect(() => {
 
-        function fetchData(endpointName: string): any {
-
-        // add endpoint to string
-        let endpoint = "http://localhost:8000/schedule/" + endpointName +  "/";
-
-        fetch(endpoint, {
+        fetch("http://localhost:8000/schedule/shifts/", {
             method: "GET",
             mode: 'cors'
-        })
-        .then(response => response.json()
+        }).then(response => response.json()
             .then(data => {
-                switch (endpointName) {
-                case "shifts":
-                    setShifts(data);
-                    break;
-    
-                case "dates":
-                    setDates(data);
-                    break;
-    
-                case "monday":
-                    setMondayShifts(data);
-                    break;
-    
-                case "tuesday":
-                    setTuesdayShifts(data);
-                    break;
-    
-                case "wednesday":
-                    setWednesdayShifts(data);
-                    break;
-    
-                case "thursday":
-                    setThursdayShifts(data);
-                    break;
-    
-                case "friday":
-                    setFridayShifts(data);
-                    break;
-    
-                case "saturday":
-                    setSaturdayShifts(data);
-                    break;
-    
-                case "sunday":
-                    setSundayShifts(data);
-                    break;
-                }
+                setDates(data[0]);
+                setMondayShifts(data[1]);
+                setTuesdayShifts(data[2]);
+                setWednesdayShifts(data[3]);
+                setThursdayShifts(data[4]);
+                setFridayShifts(data[5]);
+                setSaturdayShifts(data[6]);                 
+                setSundayShifts(data[7]);                 
             })
         )
-        .catch((err) => {
-            console.error(err);
-        })
-        }
-
-        let arr = ["shifts", "dates", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-        
-        // fetch data for each item
-        arr.forEach((item) =>
-        fetchData(item)
-        )
-        
-
-        // object.keys returns ["Monday", "Tuesday", ... ]
-        // forEach iterates over that list.
-        // the "day" var represents an individual day JSON object
-        // Object.keys(shifts).forEach((day) => {
-        // console.log("DAY", day);
-        // then you can map the actual shifts in the day objects
-        // });
 
     }, [])
 
@@ -146,7 +103,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Delete Button */}
-                        <FontAwesomeIcon icon={faCircleMinus} fade className="deleteButton" onClick={(e) => {deleteShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => {deleteShift(e, shift["id"])}}/>
                         <p>
                         {" " + shift['name']}</p>
                         <p>{shift['position']}</p>
@@ -161,7 +118,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Delete Button */}
-                        <FontAwesomeIcon icon={faCircleMinus} fade className="deleteButton" onClick={(e) => {deleteShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => {deleteShift(e, shift["id"])}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -175,7 +132,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Delete Button */}
-                        <FontAwesomeIcon icon={faCircleMinus} fade className="deleteButton" onClick={(e) => {deleteShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => {deleteShift(e, shift["id"])}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -189,7 +146,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Delete Button */}
-                        <FontAwesomeIcon icon={faCircleMinus} fade className="deleteButton" onClick={(e) => {deleteShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => {deleteShift(e, shift["id"])}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -203,7 +160,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Delete Button */}
-                        <FontAwesomeIcon icon={faCircleMinus} fade className="deleteButton" onClick={(e) => {deleteShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => {deleteShift(e, shift["id"])}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -217,7 +174,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Delete Button */}
-                        <FontAwesomeIcon icon={faCircleMinus} fade className="deleteButton" onClick={(e) => {deleteShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => {deleteShift(e, shift["id"])}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -231,7 +188,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Delete Button */}
-                        <FontAwesomeIcon icon={faCircleMinus} fade className="deleteButton" onClick={(e) => {deleteShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => {deleteShift(e, shift["id"])}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>

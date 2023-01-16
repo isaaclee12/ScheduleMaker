@@ -73,6 +73,8 @@
 2. Run the app (npm install will be performed automatically, and the server and client will be run concurrently)
   ```npm start```
 
+NOTE: CRUD functionalities take a minute to load on launch
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -88,12 +90,20 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 <!-- ROADMAP -->
 ## Roadmap
-
-- PHASE 1: CRUD App Completion
-  - NOTE: CRUD functionalities take a minute to load on launch
+- PHASE 1: CRUD Functionality
+  - ~~Implement Create/Read/Update/Delete pipelines~~
+  - ~~Add UI + Forms to reflect these pipelines~~
+  - ~~Migrate database to ElephantSQL~~
+  - Phase Completed!
 
 - PHASE 2: Dates + Glow Up
-  - Create dummy data for future weeks from today through the next year so the app just works.
+  - ~~Create dummy data for future weeks from today through the next year so the app just works.~~
+  - Fix updateShiftForm to make sure it gets the data for the shift @ id again
+  - Deploy
+  
+  - Change Update + Delete Shift functionality from being separate pages to making buttons visible
+    - And make sure both buttons don't appear at the same time. Add a cancel button too.
+  
   - Add date-fns features to have a front page that stays at the current week.
   - Add ability to go between weeks
   - Refactor the code to have better code patterns.
