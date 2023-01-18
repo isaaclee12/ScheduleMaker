@@ -98,7 +98,7 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 - PHASE 2: Dates + Glow Up
   - ~~Create dummy data for future weeks from today through the next year so the app just works.~~
-  - Fix updateShiftForm to make sure it gets the data for the shift @ id again
+  - ~~Fix updateShiftForm to make sure it gets the data for the shift @ id again~~
   - Deploy
   
   - Change Update + Delete Shift functionality from being separate pages to making buttons visible

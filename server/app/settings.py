@@ -24,9 +24,9 @@ with open(os.path.join(BASE_DIR, './secret_key_small_business_schedule_software.
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'localhost:3000']
+ALLOWED_HOSTS = ['localhost', 'localhost:3000', '127.0.0.1']
 
 
 # Application definition
