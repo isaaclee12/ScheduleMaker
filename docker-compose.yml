@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  server:
+    build: ./server # name of local repository for our django app
+    container_name: django
+    command: python manage.py runserver 0.0.0.0:8000 # Run the server!!!
+    volumes:
+      - .:/server # This maps any changes in the local code directly to the docker container!
+    ports:
+      -  "8000:8000" # Maps container's 8000 port to our machine's 8000 port
+  client:
+    build: ./client
+    container_name: react
+    command: npm start 0.0.0.0:3000 # Run the server!!!
+    volumes:
+      - .:/client # This maps any changes in the local code directly to the docker container!
+    ports:
+      -  "3000:3000" # Maps container's 3000 port to our machine's 3000 port

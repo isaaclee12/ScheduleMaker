@@ -1,0 +1,7 @@
+.venv
+node_modules
+/app/client/node_modules
+client/build
+secret_key_mysql.txt
+secret_key_elephantSQL.txt
+secret_key_small_business_schedule_software.txt
