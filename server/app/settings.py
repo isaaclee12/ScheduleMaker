@@ -26,7 +26,7 @@ with open(os.path.join(BASE_DIR, './secret_key_small_business_schedule_software.
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'localhost:3000', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', 'server']
 
 
 # Application definition
@@ -55,7 +55,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://client:3000",
+    "http://0.0.0.0:3000"
 ]
 
 ROOT_URLCONF = 'app.urls'

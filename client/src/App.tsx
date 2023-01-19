@@ -21,10 +21,12 @@ function App() {
     setFormBackgroundStyle(r);
   };
 
+  const serverAddress = defaultState.serverAddress;
+
   return (
     <div className="App">
       <NavBar/>
-      <ScheduleContext.Provider value={{requestType, changeRequestType, formBackgroundStyle, changeFormBackgroundStyle}}>
+      <ScheduleContext.Provider value={{requestType, changeRequestType, formBackgroundStyle, changeFormBackgroundStyle, serverAddress}}>
         <Routes>
           <Route index element={<Schedule/>}></Route>
           <Route path="add" element={<AddSchedule/>}></Route>

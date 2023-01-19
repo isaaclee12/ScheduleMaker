@@ -5,13 +5,16 @@ interface RequestTypeContext {
   changeRequestType: (r: string) => void;
   formBackgroundStyle: string;
   changeFormBackgroundStyle: (r: string) => void;
+  serverAddress : string;
 }
 
 export const defaultState = {
   requestType: "",
   changeRequestType: () => {},
   formBackgroundStyle: "",
-  changeFormBackgroundStyle: () => {}
+  changeFormBackgroundStyle: () => {},
+  serverAddress : "server" // TODO: Have this value set by whether or not we're using docker.
+  // "server" for docker, "localhost" for local
 }
 
 export const ScheduleContext = createContext<RequestTypeContext>(defaultState);

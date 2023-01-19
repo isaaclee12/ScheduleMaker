@@ -10,11 +10,12 @@ ENV PYTHONUNBUFFERED=1
 # Set the directory to work from
 WORKDIR /server
 
+# Copy our local server files into the server folder
+COPY . .
+
 # Install python requirements
-COPY requirements.txt /server
+# COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Copy our local server files into the server folder
-COPY . /server
 
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

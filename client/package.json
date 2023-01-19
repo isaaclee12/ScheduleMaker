@@ -22,10 +22,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "docker-start": "npm ci && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://server:8000",
   "eslintConfig": {
     "extends": [
       "react-app",
