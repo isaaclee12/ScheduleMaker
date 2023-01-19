@@ -11,11 +11,10 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /server
 
 # Install python requirements
-COPY requirements.txt ./
+COPY requirements.txt /server
 RUN pip install -r requirements.txt
 
 # Copy our local server files into the server folder
-# COPY . .
-
+COPY . /server
 
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

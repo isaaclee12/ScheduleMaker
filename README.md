@@ -105,8 +105,9 @@ Use this space to show useful examples of how a project can be used. Additional 
     - And make sure both buttons don't appear at the same time. Add a cancel button too.
   
   - Add date-fns features to have a front page that stays at the current week.
-  - Add ability to go between weeks
+  - Add ability to go between weeks.
   - Refactor the code to have better code patterns.
+  - Bolster backend security.
   - Aesthetics:
     - Mobile responsiveness
     - Better CSS please!
