@@ -1,20 +1,33 @@
-version: '3.8'
+version: '3'
 
 services:
-  server:
-    build: ./server # name of local repository for our django app
-    container_name: server
-    command: python manage.py runserver 0.0.0.0:8000 # Run the server!!!
-    volumes:
-      - ./server:/server # This maps the local server folder to the container's server folder
-    ports:
-      -  "8000:8000" # Maps container's 8000 port to our machine's 8000 port
   client:
     build: ./client
     container_name: client
-    # Set proxy to allow API calls to django backend and Run the server!!!
-    command: bash -c "npm start 0.0.0.0:3000"
+    command: bash -c "cd build && npm start" #0.0.0.0:3000" # Run the client from the BUILD folder!
+    depends_on: # Make client only start up once server is started up 
+      - server
     volumes:
       - ./client/build:/client/build # This maps the local build folder to the container's build folder
     ports:
       -  "3000:3000" # Maps container's 3000 port to our machine's 3000 port
+    # networks:
+      # my_network:
+        # ipv4_address: 192.168.0.21
+  server:
+    build: ./server # name of local repository for our django app
+    container_name: server
+    command: python manage.py runserver #0.0.0.0:8000 # Run the server!!!
+    volumes:
+      - ./server:/server # This maps the local server folder to the container's server folder
+    ports:
+      -  "8000:3000" # Maps container's 8000 port to our machine's 8000 port
+    # networks:
+    #   my_network:
+    #     ipv4_address: 192.168.0.21
+# networks:
+#   my_network:
+#     ipam:
+#       driver: default # Set network type as default bridge network
+#       config:
+#         - subnet: "192.168.0.0/24"

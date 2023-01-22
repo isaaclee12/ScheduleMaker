@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleMinus, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router";
 import useSheduleContext from '../contexts/ScheduleContext';
+import { useLocation } from "react-router-dom";
 
 function Schedule() {
 
@@ -19,10 +20,10 @@ function Schedule() {
     const [sundayShifts, setSundayShifts] = useState([])
 
     const navigate = useNavigate();
+    // const location = useLocation
 
     useEffect(() => {
-
-        fetch("http://"+"0.0.0.0:8000/schedule/shifts/", {
+        fetch("http://"+serverAddress+":8000/schedule/shifts/", {
             method: "GET",
             mode: 'cors'
         }).then(response => response.json()

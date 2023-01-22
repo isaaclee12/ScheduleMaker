@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react';
+import { useLocation } from "react-router-dom";
 
 interface RequestTypeContext {
   requestType: string;
@@ -13,7 +14,8 @@ export const defaultState = {
   changeRequestType: () => {},
   formBackgroundStyle: "",
   changeFormBackgroundStyle: () => {},
-  serverAddress : "server" // TODO: Have this value set by whether or not we're using docker.
+  serverAddress : window.location.hostname
+  // TODO: Have this value set by whether or not we're using docker.
   // "server" for docker, "localhost" for local
 }
 

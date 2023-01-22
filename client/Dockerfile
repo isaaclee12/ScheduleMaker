@@ -12,10 +12,13 @@ COPY . .
 
 # 
 # RUN npm config set 
-RUN npm config 'proxy': 'http://server:8000'
+# RUN npm config 'proxy': 'http://server:8000'
 
 # Build it!
 RUN npm run build
+
+# Expose port
+EXPOSE 3000
 
 # Start the build!
 # CMD ["npm", "start"]
