@@ -1,24 +1,25 @@
-# Set our app to be based in node
-FROM node:16
+FROM node
 
-# Set our working directory in docker
+# install simple http server for serving static content
+RUN npm install -g http-server
+
+# make the 'client' folder the current working directory
 WORKDIR /client
 
-# Create a path to access node modules
-ENV PATH="./node_modules/.bin:$PATH"
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json /client/
 
-# Copy over our react files to docker
-COPY . .
+# install project dependencies
+RUN npm install
 
-# 
-# RUN npm config set 
-# RUN npm config 'proxy': 'http://server:8000'
+# copy project files and folders to the current working directory (i.e. 'client' folder)
+COPY . /client/
 
-# Build it!
+# build client for production with minification
 RUN npm run build
 
-# Expose port
-EXPOSE 3000
+# expose the port
+EXPOSE 8080
 
-# Start the build!
-# CMD ["npm", "start"]
+# run the client
+# CMD [ "http-server", "dist" ]

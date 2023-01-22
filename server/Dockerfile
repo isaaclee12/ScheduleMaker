@@ -14,9 +14,13 @@ WORKDIR /server
 COPY . .
 
 # Install python requirements
-# COPY requirements.txt .
 RUN pip install -r requirements.txt
+
+# Copy over files
+COPY . /server/
 
 # Expose port
 EXPOSE 8000
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+# Run django
+# CMD ["python", "manage.py", "runserver"]
