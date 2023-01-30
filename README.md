@@ -73,6 +73,8 @@
 2. Run the app (npm install will be performed automatically, and the server and client will be run concurrently)
   ```npm start```
 
+NOTE: CRUD functionalities take a minute to load on launch
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -88,20 +90,28 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 <!-- ROADMAP -->
 ## Roadmap
-
-- PHASE 1: CRUD App Completion
-  - Bugs to fix:
-    - TODO: Delete function not deleting certain items
-    - TODO: DatePicker and Fontawesome symbols appearing over NavBar
+- PHASE 1: CRUD Functionality
+  - ~~Implement Create/Read/Update/Delete pipelines~~
+  - ~~Add UI + Forms to reflect these pipelines~~
+  - ~~Migrate database to ElephantSQL~~
+  - Phase Completed!
 
 - PHASE 2: Dates + Glow Up
-  - Refactor the code to have better code patterns.
-  - Create dummy data for future weeks so the app just works.
+  - ~~Create dummy data for future weeks from today through the next year so the app just works.~~
+  - ~~Fix updateShiftForm to make sure it gets the data for the shift @ id again~~
+  - Deploy
+  
+  - Change Update + Delete Shift functionality from being separate pages to making buttons visible
+    - And make sure both buttons don't appear at the same time. Add a cancel button too.
+  
   - Add date-fns features to have a front page that stays at the current week.
-  - Add ability to go between weeks
+  - Add ability to go between weeks.
+  - Refactor the code to have better code patterns.
+  - Bolster backend security.
   - Aesthetics:
     - Mobile responsiveness
     - Better CSS please!
+    - Dark Mode
 
 - PHASE 3: Authentication & Data Cleaning
   - Implement Basic JWT Authentication for a single account
@@ -109,7 +119,7 @@ Use this space to show useful examples of how a project can be used. Additional 
   - Add Roles System
   - Have one admin account and a few employee accounts
   - Have schedules displayed based on who's logged in
-  - Document the whole thing down to the last line, for your own reference later when you make another CRUD app
+  - Document the whole thing
 
 - Phase 4: Add availability, time off, and other features
   - Add availability (2 weeks out, for employees, any for managers)

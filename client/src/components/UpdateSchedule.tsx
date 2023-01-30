@@ -1,10 +1,9 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UpdateScheduleContext } from "../contexts/UpdateScheduleContext";
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router";
 
-function DeleteSchedule() {
+function UpdateSchedule() {
 
     // This hook gets our context variable
     // const [updateScheduleContext] = useContext(UpdateScheduleContext)
@@ -44,66 +43,20 @@ function DeleteSchedule() {
     
     useEffect(() => {
 
-        function fetchData(endpointName: string): any {
-
-        // add endpoint to string
-        let endpoint = "http://localhost:8000/schedule/" + endpointName +  "/";
-
-        fetch(endpoint, {
+        fetch("http://localhost:8000/schedule/shifts/", {
             method: "GET",
             mode: 'cors'
-        })
-        .then(response => response.json()
+        }).then(response => response.json()
             .then(data => {
-                switch (endpointName) {
-                case "shifts":
-                    setShifts(data);
-                    break;
-    
-                case "dates":
-                    setDates(data);
-                    break;
-    
-                case "monday":
-                    setMondayShifts(data);
-                    break;
-    
-                case "tuesday":
-                    setTuesdayShifts(data);
-                    break;
-    
-                case "wednesday":
-                    setWednesdayShifts(data);
-                    break;
-    
-                case "thursday":
-                    setThursdayShifts(data);
-                    break;
-    
-                case "friday":
-                    setFridayShifts(data);
-                    break;
-    
-                case "saturday":
-                    setSaturdayShifts(data);
-                    break;
-    
-                case "sunday":
-                    setSundayShifts(data);
-                    break;
-                }
+                setDates(data[0]);
+                setMondayShifts(data[1]);
+                setTuesdayShifts(data[2]);
+                setWednesdayShifts(data[3]);
+                setThursdayShifts(data[4]);
+                setFridayShifts(data[5]);
+                setSaturdayShifts(data[6]);                 
+                setSundayShifts(data[7]);                 
             })
-        )
-        .catch((err) => {
-            console.error(err);
-        })
-        }
-
-        let arr = ["shifts", "dates", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-        
-        // fetch data for each item
-        arr.forEach((item) =>
-        fetchData(item)
         )
 
     }, [])
@@ -143,7 +96,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Edit Button */}
-                        <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
                         <p>
                         {" " + shift['name']}</p>
                         <p>{shift['position']}</p>
@@ -158,7 +111,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Edit Button */}
-                        <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -172,7 +125,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Edit Button */}
-                        <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -186,7 +139,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Edit Button */}
-                        <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -200,7 +153,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Edit Button */}
-                        <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -214,7 +167,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Edit Button */}
-                        <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -228,7 +181,7 @@ function DeleteSchedule() {
                         <div key={index}>
                         <br/>
                         {/* Edit Button */}
-                        <FontAwesomeIcon icon={faEdit} fade className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
+                        <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => {updateShift(e, shift)}}/>
                         <p>{shift['name']}</p>
                         <p>{shift['position']}</p>
                         <p>{shift['start_time'] + "-" + shift['end_time']}</p>
@@ -248,4 +201,4 @@ function DeleteSchedule() {
     )
 }
 
-export default DeleteSchedule;
+export default UpdateSchedule;

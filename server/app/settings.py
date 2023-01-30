@@ -20,13 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(os.path.join(BASE_DIR, '../../secret_key_small_business_schedule_software.txt')) as f:
+with open(os.path.join(BASE_DIR, './secret_key_small_business_schedule_software.txt')) as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'localhost:3000']
+ALLOWED_HOSTS = ['localhost', 'server']
 
 
 # Application definition
@@ -55,7 +55,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://client:3000",
+    "http://0.0.0.0:3000"
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -82,23 +85,46 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# Strip mysql password
-with open(os.path.join(BASE_DIR, '../../secret_key_mysql.txt')) as f:
-    SQL_PASSWORD = f.read().strip()
 
+# Strip mysql password
+with open(os.path.join(BASE_DIR, './secret_key_elephantSQL.txt')) as f:
+    SQL_USERNAME = f.readline().replace("\n", "")
+    SQL_URL = f.readline().replace("\n", "")
+    SQL_PASSWORD = f.readline().replace("\n", "")
+
+# Postgres/ElephantSQL
 DATABASES = {
     'default': {  
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'small_business_schedule_software_data',  
-        'USER': 'root',  
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',  
+        'NAME': SQL_USERNAME,
+        'USER': SQL_USERNAME,
         'PASSWORD': SQL_PASSWORD,  
-        'HOST': '127.0.0.1',  
-        'PORT': '3306',  
-        'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
-        }  
-    }  
+        'HOST': "salt.db.elephantsql.com",  
+        'PORT': ''
+    }
 }
+
+
+# Strip mysql password
+# with open(os.path.join(BASE_DIR, './secret_key_mysql.txt')) as f:
+    # SQL_PASSWORD = f.read().strip()
+
+# MySQL
+# DATABASES = {
+#     'default': {  
+#         'ENGINE': 'django.db.backends.mysql',  
+#         'NAME': 'small_business_schedule_software_data',  
+#         'USER': 'root',  
+#         'PASSWORD': SQL_PASSWORD,  
+#         'HOST': '127.0.0.1',  
+#         'PORT': '3306',  
+#         'OPTIONS': {  
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+#         }  
+#     }  
+# }
+
+# SQLite3
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
