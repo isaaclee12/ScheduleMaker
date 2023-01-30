@@ -10,7 +10,6 @@ ENV PATH="./node_modules/.bin:$PATH"
 # Copy over our react files to docker
 COPY . .
 
-
 # Build it!
 # RUN npm run build
 
