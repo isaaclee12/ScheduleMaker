@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'schedule_api'
 ]
 
+# Redirect http to https
+SECURE_SSL_REDIRECT = True
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
