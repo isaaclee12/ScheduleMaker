@@ -24,7 +24,7 @@ function Schedule() {
     // const location = useLocation
 
     useEffect(() => {
-        fetch("http://" + serverAddress + ":8000/schedule/shifts/", {
+        fetch("https://" + serverAddress + ":8000/schedule/shifts/", {
             method: "GET",
             mode: 'cors'
         }).then(response => response.json()
@@ -61,7 +61,7 @@ function Schedule() {
     const deleteShift = (event: React.MouseEvent<SVGSVGElement, MouseEvent>, id: string) => {
         event.preventDefault();
 
-        fetch("http://localhost:8000/schedule/shifts/" + id + "/", {
+        fetch("https://localhost:8000/schedule/shifts/" + id + "/", {
             method: "DELETE",
             mode: 'cors',
         })

@@ -43,7 +43,7 @@ function UpdateSchedule() {
     
     useEffect(() => {
 
-        fetch("http://localhost:8000/schedule/shifts/", {
+        fetch("https://localhost:8000/schedule/shifts/", {
             method: "GET",
             mode: 'cors'
         }).then(response => response.json()

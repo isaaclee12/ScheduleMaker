@@ -47,7 +47,7 @@ function Form() {
     useEffect(() => {
 
         if (sessionStorage.getItem("ShiftToUpdateID")) {
-            fetch("http://localhost:8000/schedule/shifts/", {
+            fetch("https://localhost:8000/schedule/shifts/", {
             method: "GET",
             mode: 'cors',
         })
@@ -167,7 +167,7 @@ function Form() {
         return true;
     }
 
-    // TODO: Pass in HTTP type - PATCH, POST, OR DELETE to handleSubmit
+    // TODO: Pass in HTTPs type - PATCH, POST, OR DELETE to handleSubmit
     const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
 
@@ -210,7 +210,7 @@ function Form() {
 
         // send the data via POST
         if (requestType.toString() === "POST") {
-            fetch("http://localhost:8000/schedule/shifts/", {
+            fetch("https://localhost:8000/schedule/shifts/", {
                 method: requestType.toString(),
                 mode: 'cors',
                 body: JSON.stringify(dataToSend)
@@ -225,7 +225,7 @@ function Form() {
 
             // send the data via PATCH
         } else if (requestType.toString() === "PATCH") {
-            fetch("http://localhost:8000/schedule/shifts/" + idToFetchFrom + "/", {
+            fetch("https://localhost:8000/schedule/shifts/" + idToFetchFrom + "/", {
                 method: "PATCH",
                 mode: 'cors',
                 // set the body of this request to that JSON we just made

@@ -32,7 +32,7 @@ function DeleteSchedule() {
     const deleteShift = (event: React.MouseEvent<SVGSVGElement, MouseEvent>, id: number) => {
         event.preventDefault();
 
-        fetch("http://localhost:8000/schedule/shifts/" + id + "/",  {
+        fetch("https://localhost:8000/schedule/shifts/" + id + "/",  {
             method: "DELETE",
             mode: 'cors',
         })
@@ -51,7 +51,7 @@ function DeleteSchedule() {
     
         useEffect(() => {
 
-        fetch("http://localhost:8000/schedule/shifts/", {
+        fetch("https://localhost:8000/schedule/shifts/", {
             method: "GET",
             mode: 'cors'
         }).then(response => response.json()
