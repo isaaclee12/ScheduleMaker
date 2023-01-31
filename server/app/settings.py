@@ -24,13 +24,12 @@ with open(os.path.join(BASE_DIR, './secret_key_small_business_schedule_software.
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'server']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,9 +43,10 @@ INSTALLED_APPS = [
 ]
 
 # Account for http/https discrepancy
-SECURE_SSL_REDIRECT=False
-SESSION_COOKIE_SECURE=False
-CSRF_COOKIE_SECURE=False
+# NOTE: These should be set to TRUE in production and FALSE in development 
+SECURE_SSL_REDIRECT=True
+SESSION_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
 
 
 MIDDLEWARE = [
