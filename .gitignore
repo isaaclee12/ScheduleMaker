@@ -2,6 +2,8 @@
 node_modules
 /app/client/node_modules
 client/build
+**/__pycache__
+*.pyc
 server/secret_key_mysql.txt
 server/secret_key_elephantSQL.txt
 server/secret_key_small_business_schedule_software.txt
