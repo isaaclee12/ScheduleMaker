@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'schedule_api'
 ]
 
-# Redirect http to https
-SECURE_SSL_REDIRECT = True
+# Account for http/https discrepancy
+SECURE_SSL_REDIRECT=False
+SESSION_COOKIE_SECURE=False
+CSRF_COOKIE_SECURE=False
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -58,6 +61,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    "https://localhost:3000",
+    "https://127.0.0.1:3000",
+    "https://client:3000",
+    "https://0.0.0.0:3000",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://client:3000",
