@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleMinus, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router";
 import useSheduleContext from '../contexts/ScheduleContext';
+import Shift, { ShiftArray } from '../types';
 
 function Schedule() {
 
@@ -10,6 +11,7 @@ function Schedule() {
 
     const [dates, setDates] = useState([])
 
+    const [allShifts, setAllShifts] = useState([])
     const [mondayShifts, setMondayShifts] = useState([])
     const [tuesdayShifts, setTuesdayShifts] = useState([])
     const [wednesdayShifts, setWednesdayShifts] = useState([])
@@ -28,6 +30,7 @@ function Schedule() {
         }).then(response => response.json()
             .then(data => {
                 setDates(data[0]);
+                setAllShifts(data.slice(1, data.length));
                 setMondayShifts(data[1]);
                 setTuesdayShifts(data[2]);
                 setWednesdayShifts(data[3]);
@@ -40,7 +43,7 @@ function Schedule() {
 
     }, [])
 
-    const updateShift = (event: any, shift: any) => {
+    const updateShift = (event: React.MouseEvent<SVGSVGElement, MouseEvent>, shift: Shift) => {
 
         // Get the id of the shift as shift["id"]
         // Send the id to UpdateScheduleForm.tsx***
@@ -55,7 +58,7 @@ function Schedule() {
         return;
     }
 
-    const deleteShift = (event: React.MouseEvent<SVGSVGElement, MouseEvent>, id: number) => {
+    const deleteShift = (event: React.MouseEvent<SVGSVGElement, MouseEvent>, id: string) => {
         event.preventDefault();
 
         fetch("http://localhost:8000/schedule/shifts/" + id + "/", {
@@ -70,7 +73,6 @@ function Schedule() {
                 console.error(error);
             })
     }
-
 
     return (
         <div className="grid place-items-center h-screen">
@@ -98,121 +100,22 @@ function Schedule() {
 
                 <tbody className="text-center space-y-4">
                     <tr>
-
-                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                            {mondayShifts.map((shift, index) =>
-                                <div key={index}>
-                                    <br />
-                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
-
-                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
-
-                                    <p>{shift['name']}</p>
-                                    <p>{shift['position']}</p>
-                                    <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                                    <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                                </div>
-                            )}
-                        </td>
-
-                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                            {tuesdayShifts.map((shift, index) =>
-                                <div key={index}>
-                                    <br />
-                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
-
-                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
-
-                                    <p>{shift['name']}</p>
-                                    <p>{shift['position']}</p>
-                                    <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                                    <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                                </div>
-                            )}
-                        </td>
-
-                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                            {wednesdayShifts.map((shift, index) =>
-                                <div key={index}>
-                                    <br />
-                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
-
-                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
-
-                                    <p>{shift['name']}</p>
-                                    <p>{shift['position']}</p>
-                                    <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                                    <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                                </div>
-                            )}
-                        </td>
-
-                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                            {thursdayShifts.map((shift, index) =>
-                                <div key={index}>
-                                    <br />
-                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
-
-                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
-
-                                    <p>{shift['name']}</p>
-                                    <p>{shift['position']}</p>
-                                    <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                                    <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                                </div>
-                            )}
-                        </td>
-
-                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                            {fridayShifts.map((shift, index) =>
-                                <div key={index}>
-                                    <br />
-                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
-
-                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
-
-                                    <p>{shift['name']}</p>
-                                    <p>{shift['position']}</p>
-                                    <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                                    <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                                </div>
-                            )}
-                        </td>
-
-                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                            {saturdayShifts.map((shift, index) =>
-                                <div key={index}>
-                                    <br />
-                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
-
-                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
-
-                                    <p>{shift['name']}</p>
-                                    <p>{shift['position']}</p>
-                                    <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                                    <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                                </div>
-                            )}
-                        </td>
-
-                        <td className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
-                            {sundayShifts.map((shift, index) =>
-                                <div key={index}>
-                                    <br />
-                                    <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
-
-                                    <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
-
-                                    <p>{shift['name']}</p>
-                                    <p>{shift['position']}</p>
-                                    <p>{shift['start_time'] + "-" + shift['end_time']}</p>
-                                    <p>{" (" + shift['total_hours'] + " hours)"}</p>
-                                </div>
-                            )}
-                        </td>
-
+                        {allShifts.map((dayOfWeek: ShiftArray, index: number) =>
+                            <td key={index} className="text-sm text-gray-900 font-light px-3 py-4 whitespace-nowrap border">
+                                {dayOfWeek.map((shift: Shift, index: number) =>
+                                    <div key={index}>
+                                        <br />
+                                        <FontAwesomeIcon icon={faEdit} className="editButton" onClick={(e) => { updateShift(e, shift) }} />
+                                        <FontAwesomeIcon icon={faCircleMinus} className="deleteButton" onClick={(e) => { deleteShift(e, shift["id"]) }} />
+                                        <p>{shift['name']}</p>
+                                        <p>{shift['position']}</p>
+                                        <p>{shift['start_time'] + "-" + shift['end_time']}</p>
+                                        <p>{" (" + shift['total_hours'] + " hours)"}</p>
+                                    </div>
+                                )}
+                            </td>
+                        )}
                     </tr>
-
                 </tbody>
             </table>
         </div>
