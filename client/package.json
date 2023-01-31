@@ -4,10 +4,11 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-brands-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/node": "^16.18.3",
-    "@types/react": "^18.0.25",
+    "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.8",
     "client": "file:",
     "date-fns": "^2.29.3",
@@ -20,8 +21,9 @@
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "start": "npm install && react-scripts start",
-    "build": "npm install && react-scripts build",
+    "start": "react-scripts start",
+    "docker-start": "npm ci && react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

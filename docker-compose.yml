@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  client:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+      -  "3000:3000" # Maps container's 3000 port to our machine's 3000 port
+    depends_on: # Make client only start up once server is started up 
+      - server
+    command: bash -c "cd build && npm start" #0.0.0.0:3000" # Run the client from the BUILD folder!
+    volumes:
+      - ./client/build:/client/build # This maps the local build folder to the container's build folder
+    networks:
+      - my-net
+  server:
+    build: 
+      context: ./server # name of local repository for our django app
+      dockerfile: Dockerfile
+    container_name: server
+    ports:
+      -  "8000:8000" # Maps container's 8000 port to our machine's 8000 port
+    command: python manage.py runserver 0.0.0.0:8000 # Run the server!!!
+    volumes:
+      - ./server:/server # This maps the local server folder to the container's server folder
+    networks:
+      - my-net 
+networks:
+  my-net:
+    driver: bridge # Set network type as default bridge network
